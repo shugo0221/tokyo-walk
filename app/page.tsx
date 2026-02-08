@@ -10,6 +10,8 @@ export default function Home() {
   const [duration, setDuration] = useState<Duration>(60);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [filteredCount, setFilteredCount] = useState<number>(0);
+  const [history, setHistory] = useState<Course[]>([]);
+  const [favorites, setFavorites] = useState<number[]>([]); // お気に入りコースのIDリスト
 
   // 季節ごとの平均気温
   const seasonTemperatures: Record<Season, number> = {
@@ -25,18 +27,61 @@ export default function Home() {
     setTemperature(seasonTemperatures[season]);
   };
 
-  // 季節を自動判定
+  // 初期表示時：保存された条件と履歴を復元、なければ季節を自動判定
   useEffect(() => {
-    const month = new Date().getMonth() + 1;
-    let detectedSeason: Season;
-    if (month >= 3 && month <= 5) detectedSeason = "春";
-    else if (month >= 6 && month <= 8) detectedSeason = "夏";
-    else if (month >= 9 && month <= 11) detectedSeason = "秋";
-    else detectedSeason = "冬";
+    // localStorageから保存された条件を取得
+    const savedSeason = localStorage.getItem('tokyoWalk_season') as Season | null;
+    const savedTemperature = localStorage.getItem('tokyoWalk_temperature');
+    const savedWeather = localStorage.getItem('tokyoWalk_weather') as WeatherStyle | null;
+    const savedDuration = localStorage.getItem('tokyoWalk_duration');
 
-    setCurrentSeason(detectedSeason);
-    setTemperature(seasonTemperatures[detectedSeason]);
+    // localStorageから履歴を取得
+    const savedHistory = localStorage.getItem('tokyoWalk_history');
+    if (savedHistory) {
+      try {
+        setHistory(JSON.parse(savedHistory));
+      } catch (e) {
+        console.error('履歴の読み込みに失敗しました', e);
+      }
+    }
+
+    // localStorageからお気に入りを取得
+    const savedFavorites = localStorage.getItem('tokyoWalk_favorites');
+    if (savedFavorites) {
+      try {
+        setFavorites(JSON.parse(savedFavorites));
+      } catch (e) {
+        console.error('お気に入りの読み込みに失敗しました', e);
+      }
+    }
+
+    if (savedSeason && savedTemperature && savedWeather && savedDuration) {
+      // 保存された条件がある場合は復元
+      setCurrentSeason(savedSeason);
+      setTemperature(Number(savedTemperature));
+      setWeather(savedWeather);
+      setDuration(Number(savedDuration) as Duration);
+    } else {
+      // 保存された条件がない場合は季節を自動判定
+      const month = new Date().getMonth() + 1;
+      let detectedSeason: Season;
+      if (month >= 3 && month <= 5) detectedSeason = "春";
+      else if (month >= 6 && month <= 8) detectedSeason = "夏";
+      else if (month >= 9 && month <= 11) detectedSeason = "秋";
+      else detectedSeason = "冬";
+
+      setCurrentSeason(detectedSeason);
+      setTemperature(seasonTemperatures[detectedSeason]);
+    }
   }, []);
+
+  // 条件が変更されたらlocalStorageに保存
+  useEffect(() => {
+    localStorage.setItem('tokyoWalk_season', currentSeason);
+    localStorage.setItem('tokyoWalk_temperature', temperature.toString());
+    localStorage.setItem('tokyoWalk_weather', weather);
+    localStorage.setItem('tokyoWalk_duration', duration.toString());
+  }, [currentSeason, temperature, weather, duration]);
 
   // フィルタリング関数
   const filterCourses = () => {
@@ -47,6 +92,16 @@ export default function Home() {
         course.duration === duration
       );
     });
+  };
+
+  // お気に入りの追加・削除
+  const toggleFavorite = (courseId: number) => {
+    const newFavorites = favorites.includes(courseId)
+      ? favorites.filter(id => id !== courseId)
+      : [...favorites, courseId];
+
+    setFavorites(newFavorites);
+    localStorage.setItem('tokyoWalk_favorites', JSON.stringify(newFavorites));
   };
 
   // ランダム選択
@@ -60,7 +115,13 @@ export default function Home() {
     }
 
     const randomIndex = Math.floor(Math.random() * filtered.length);
-    setSelectedCourse(filtered[randomIndex]);
+    const selected = filtered[randomIndex];
+    setSelectedCourse(selected);
+
+    // 履歴に追加（最新10件まで保持）
+    const newHistory = [selected, ...history.filter(c => c.id !== selected.id)].slice(0, 10);
+    setHistory(newHistory);
+    localStorage.setItem('tokyoWalk_history', JSON.stringify(newHistory));
   };
 
   useEffect(() => {
@@ -286,24 +347,116 @@ export default function Home() {
                 </span>
               </div>
 
-              {/* Google Mapボタン */}
-              <div className="flex gap-4">
-                <a
-                  href={getGoogleMapsUrl(selectedCourse)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 py-5 px-6 bg-gradient-to-r from-red-500 via-pink-500 to-rose-500 text-white rounded-2xl font-bold text-lg text-center hover:from-red-600 hover:via-pink-600 hover:to-rose-600 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3"
-                >
-                  <span className="text-2xl">📍</span>
-                  <span>Google Mapで見る</span>
-                </a>
+              {/* ボタンエリア */}
+              <div className="space-y-4">
+                {/* お気に入りボタン */}
                 <button
-                  onClick={randomizeCourse}
-                  className="py-5 px-8 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-bold text-lg hover:from-indigo-700 hover:to-purple-700 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                  onClick={() => toggleFavorite(selectedCourse.id)}
+                  className={`w-full py-4 px-6 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 ${
+                    favorites.includes(selectedCourse.id)
+                      ? 'bg-gradient-to-r from-pink-500 via-red-500 to-rose-500 text-white'
+                      : 'bg-white border-2 border-pink-500 text-pink-500 hover:bg-pink-50'
+                  }`}
                 >
-                  🔄 再抽選
+                  <span className="text-2xl">{favorites.includes(selectedCourse.id) ? '❤️' : '🤍'}</span>
+                  <span>{favorites.includes(selectedCourse.id) ? 'お気に入り登録済み' : 'お気に入りに追加'}</span>
                 </button>
+
+                {/* Google Mapと再抽選 */}
+                <div className="flex gap-4">
+                  <a
+                    href={getGoogleMapsUrl(selectedCourse)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 py-5 px-6 bg-gradient-to-r from-red-500 via-pink-500 to-rose-500 text-white rounded-2xl font-bold text-lg text-center hover:from-red-600 hover:via-pink-600 hover:to-rose-600 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3"
+                  >
+                    <span className="text-2xl">📍</span>
+                    <span>Google Mapで見る</span>
+                  </a>
+                  <button
+                    onClick={randomizeCourse}
+                    className="py-5 px-8 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-bold text-lg hover:from-indigo-700 hover:to-purple-700 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                  >
+                    🔄 再抽選
+                  </button>
+                </div>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* お気に入り */}
+        {favorites.length > 0 && (
+          <div className="mt-10 bg-white/90 backdrop-blur-xl rounded-3xl shadow-xl p-8 border border-white/30 animate-fadeIn">
+            <h3 className="text-2xl font-extrabold bg-gradient-to-r from-pink-600 via-red-600 to-rose-600 bg-clip-text text-transparent mb-6 flex items-center gap-2">
+              <span className="text-3xl">❤️</span> お気に入り
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {courses.filter(course => favorites.includes(course.id)).map((course) => (
+                <button
+                  key={course.id}
+                  onClick={() => setSelectedCourse(course)}
+                  className="p-4 bg-gradient-to-br from-pink-50 to-rose-50 hover:from-pink-100 hover:to-rose-100 rounded-2xl border-2 border-pink-200/50 transition-all duration-300 hover:scale-105 hover:shadow-lg text-left relative"
+                >
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFavorite(course.id);
+                    }}
+                    className="absolute top-2 right-2 text-2xl hover:scale-125 transition-transform"
+                  >
+                    ❤️
+                  </button>
+                  <div className="flex items-start justify-between gap-2 pr-8">
+                    <div className="flex-1">
+                      <h4 className="font-bold text-gray-800 mb-1 line-clamp-1">{course.name}</h4>
+                      <p className="text-sm text-gray-600 mb-2">📍 {course.area}</p>
+                      <div className="flex gap-2 flex-wrap">
+                        <span className="text-xs bg-pink-600 text-white px-2 py-1 rounded-full">
+                          {course.duration}分
+                        </span>
+                        <span className="text-xs bg-rose-600 text-white px-2 py-1 rounded-full">
+                          {formatDistance(course.distance)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ガチャ履歴 */}
+        {history.length > 0 && (
+          <div className="mt-10 bg-white/90 backdrop-blur-xl rounded-3xl shadow-xl p-8 border border-white/30 animate-fadeIn">
+            <h3 className="text-2xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6 flex items-center gap-2">
+              <span className="text-3xl">📜</span> ガチャ履歴
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {history.map((course, index) => (
+                <button
+                  key={`${course.id}-${index}`}
+                  onClick={() => setSelectedCourse(course)}
+                  className="p-4 bg-gradient-to-br from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 rounded-2xl border-2 border-indigo-200/50 transition-all duration-300 hover:scale-105 hover:shadow-lg text-left"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1">
+                      <h4 className="font-bold text-gray-800 mb-1 line-clamp-1">{course.name}</h4>
+                      <p className="text-sm text-gray-600 mb-2">📍 {course.area}</p>
+                      <div className="flex gap-2 flex-wrap">
+                        <span className="text-xs bg-indigo-600 text-white px-2 py-1 rounded-full">
+                          {course.duration}分
+                        </span>
+                        <span className="text-xs bg-purple-600 text-white px-2 py-1 rounded-full">
+                          {formatDistance(course.distance)}
+                        </span>
+                      </div>
+                    </div>
+                    <span className="text-2xl">✨</span>
+                  </div>
+                </button>
+              ))}
             </div>
           </div>
         )}
