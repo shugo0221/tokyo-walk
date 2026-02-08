@@ -247,6 +247,16 @@ export default function Home() {
                 <p className="text-gray-800 leading-relaxed text-lg font-medium">
                   {selectedCourse.description}
                 </p>
+                {(selectedCourse.durationNote || selectedCourse.startPoint) && (
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <p className="text-sm text-gray-600 flex items-start gap-2">
+                      <span className="text-base">ℹ️</span>
+                      <span>
+                        {selectedCourse.durationNote || "所要時間は観光・休憩・写真撮影などを含む目安時間です。Google Mapの徒歩時間とは異なる場合があります。"}
+                      </span>
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div className="flex flex-wrap gap-4 mb-8">

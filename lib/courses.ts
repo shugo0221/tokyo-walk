@@ -13,6 +13,8 @@ export interface Course {
   description: string;
   startPoint?: string; // スタート地点（住所または場所名）
   endPoint?: string;   // ゴール地点（住所または場所名）
+  waypoints?: string[]; // 経由地点（観光スポットなど）
+  durationNote?: string; // 所要時間に関する注釈
 }
 
 // 距離をフォーマットする関数
@@ -26,7 +28,17 @@ export function getGoogleMapsUrl(course: Course): string {
   if (course.startPoint && course.endPoint) {
     const origin = encodeURIComponent(course.startPoint);
     const destination = encodeURIComponent(course.endPoint);
-    return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=walking`;
+
+    // 経由地点がある場合は追加
+    let url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`;
+
+    if (course.waypoints && course.waypoints.length > 0) {
+      const waypoints = course.waypoints.map(wp => encodeURIComponent(wp)).join('|');
+      url += `&waypoints=${waypoints}`;
+    }
+
+    url += '&travelmode=walking';
+    return url;
   }
 
   // 設定されていない場合は検索表示
@@ -53,6 +65,8 @@ export const courses: Course[] = [
     description: "約800本の桜が川沿いに続く人気スポット。春の陽気な散歩に最適です。",
     startPoint: "中目黒駅",
     endPoint: "池尻大橋駅",
+    waypoints: ["目黒川沿い", "中目黒公園"],
+    durationNote: "桜の鑑賞や写真撮影の時間を含む目安時間です",
   },
   {
     id: 2,
@@ -65,6 +79,8 @@ export const courses: Course[] = [
     description: "広大な敷地に約1200本の桜。博物館や動物園も楽しめる充実コースです。",
     startPoint: "上野駅",
     endPoint: "鶯谷駅",
+    waypoints: ["上野恩賜公園", "不忍池", "上野東照宮"],
+    durationNote: "公園内の散策・観光・休憩時間を含みます",
   },
   {
     id: 3,
@@ -77,6 +93,8 @@ export const courses: Course[] = [
     description: "皇居のお堀沿いに続く桜のトンネル。都心の静かな散歩道です。",
     startPoint: "九段下駅",
     endPoint: "半蔵門駅",
+    waypoints: ["千鳥ヶ淵緑道"],
+    durationNote: "桜を眺めながらゆっくり歩く時間です",
   },
 
   // 夏のコース
@@ -91,6 +109,8 @@ export const courses: Course[] = [
     description: "東京23区唯一の渓谷。木陰と川のせせらぎで涼しく過ごせます。",
     startPoint: "等々力駅",
     endPoint: "等々力不動尊",
+    waypoints: ["等々力渓谷", "等々力渓谷横穴"],
+    durationNote: "渓谷内をゆっくり散策する時間です",
   },
   {
     id: 5,
@@ -103,6 +123,8 @@ export const courses: Course[] = [
     description: "広大な敷地の木陰道。噴水エリアで涼むこともできる夏の定番コースです。",
     startPoint: "立川駅",
     endPoint: "昭島駅",
+    waypoints: ["昭和記念公園", "レインボープール", "水のカーテン"],
+    durationNote: "公園内を散策し、休憩を楽しむ時間です",
   },
   {
     id: 6,
@@ -115,6 +137,8 @@ export const courses: Course[] = [
     description: "海風が心地よい潮入の池がある庭園。都会のオアシスです。",
     startPoint: "汐留駅",
     endPoint: "築地市場駅",
+    waypoints: ["浜離宮恩賜庭園"],
+    durationNote: "庭園内をゆっくり鑑賞する時間です",
   },
   {
     id: 7,
@@ -127,6 +151,8 @@ export const courses: Course[] = [
     description: "レインボーブリッジを眺めながら海沿いを散歩。夕方からがおすすめです。",
     startPoint: "お台場海浜公園駅",
     endPoint: "台場駅",
+    waypoints: ["お台場海浜公園", "自由の女神像"],
+    durationNote: "海辺をゆっくり散策し、夕景を楽しむ時間です",
   },
 
   // 秋のコース
@@ -141,6 +167,8 @@ export const courses: Course[] = [
     description: "146本のイチョウが作る黄金のトンネル。秋の東京を代表する景色です。",
     startPoint: "青山一丁目駅",
     endPoint: "外苑前駅",
+    waypoints: ["明治神宮外苑イチョウ並木"],
+    durationNote: "イチョウ並木をゆっくり歩き、写真撮影を楽しむ時間です",
   },
   {
     id: 9,
@@ -153,6 +181,8 @@ export const courses: Course[] = [
     description: "美しい日本庭園で紅葉を楽しむ。ライトアップ時期もおすすめです。",
     startPoint: "駒込駅",
     endPoint: "巣鴨駅",
+    waypoints: ["六義園"],
+    durationNote: "庭園内を散策し、紅葉を鑑賞する時間です",
   },
   {
     id: 10,
@@ -165,6 +195,8 @@ export const courses: Course[] = [
     description: "広い芝生と色づく木々。ゆったりと秋を感じられる都会のオアシスです。",
     startPoint: "原宿駅",
     endPoint: "代々木公園駅",
+    waypoints: ["代々木公園", "明治神宮"],
+    durationNote: "公園内を散策し、休憩を含む時間です",
   },
   {
     id: 11,
@@ -177,6 +209,8 @@ export const courses: Course[] = [
     description: "200mに渡る黄金のイチョウ並木。広大な敷地でゆったり散策できます。",
     startPoint: "西立川駅",
     endPoint: "立川駅",
+    waypoints: ["昭和記念公園", "かたらいのイチョウ並木", "日本庭園"],
+    durationNote: "広大な公園内を散策し、休憩する時間です",
   },
 
   // 冬のコース
@@ -191,6 +225,8 @@ export const courses: Course[] = [
     description: "冬の凛とした空気の中、江戸城跡を巡る歴史散歩が楽しめます。",
     startPoint: "大手町駅",
     endPoint: "竹橋駅",
+    waypoints: ["皇居東御苑", "天守台跡"],
+    durationNote: "庭園と史跡をゆっくり見学する時間です",
   },
   {
     id: 13,
@@ -203,6 +239,8 @@ export const courses: Course[] = [
     description: "温かい食べ物を楽しみながら散策。冬の寒さも忘れる美味しい散歩です。",
     startPoint: "築地市場駅",
     endPoint: "築地駅",
+    waypoints: ["築地場外市場"],
+    durationNote: "食べ歩きとショッピングを楽しむ時間です",
   },
   {
     id: 14,
@@ -215,6 +253,8 @@ export const courses: Course[] = [
     description: "美しいイルミネーションが街を彩る冬の夜の散歩コース。",
     startPoint: "東京駅",
     endPoint: "有楽町駅",
+    waypoints: ["丸の内仲通り", "東京国際フォーラム"],
+    durationNote: "イルミネーションを眺めながらゆっくり歩く時間です",
   },
 
   // オールシーズン（晴天）
@@ -229,6 +269,8 @@ export const courses: Course[] = [
     description: "東京を代表する観光スポット。下町情緒あふれる散歩が楽しめます。",
     startPoint: "浅草駅",
     endPoint: "東京スカイツリー",
+    waypoints: ["浅草寺", "仲見世通り", "雷門"],
+    durationNote: "観光・参拝・ショッピングの時間を含みます",
   },
   {
     id: 16,
@@ -241,6 +283,8 @@ export const courses: Course[] = [
     description: "昭和レトロな商店街と猫がいる街。ゆったりとした時間が流れます。",
     startPoint: "日暮里駅",
     endPoint: "根津駅",
+    waypoints: ["谷中銀座商店街", "夕やけだんだん"],
+    durationNote: "商店街を散策し、食べ歩きを楽しむ時間です",
   },
   {
     id: 17,
@@ -253,6 +297,8 @@ export const courses: Course[] = [
     description: "最新トレンドとおしゃれなカフェが並ぶ街を散策。",
     startPoint: "原宿駅",
     endPoint: "表参道駅",
+    waypoints: ["竹下通り", "明治神宮", "表参道ヒルズ"],
+    durationNote: "ショッピングや休憩を楽しみながらの散策時間です",
   },
 
   // 雨天対応コース
@@ -267,6 +313,8 @@ export const courses: Course[] = [
     description: "広大な地下街を探検。雨を気にせず、グルメやショッピングを楽しめます。",
     startPoint: "東京駅八重洲口",
     endPoint: "東京駅丸の内口",
+    waypoints: ["八重洲地下街"],
+    durationNote: "地下街を探検し、ショッピングを楽しむ時間です",
   },
   {
     id: 19,
@@ -279,6 +327,8 @@ export const courses: Course[] = [
     description: "迷宮のような地下街を散策。雨の日でも快適に歩き回れます。",
     startPoint: "新宿駅西口",
     endPoint: "新宿三丁目駅",
+    waypoints: ["新宿サブナード", "メトロプロムナード"],
+    durationNote: "地下街を探索し、グルメやショッピングを楽しむ時間です",
   },
   {
     id: 20,
@@ -291,6 +341,8 @@ export const courses: Course[] = [
     description: "屋内施設が充実。展望台や商業施設を巡る都市型散歩。",
     startPoint: "渋谷駅",
     endPoint: "渋谷ヒカリエ",
+    waypoints: ["渋谷スクランブルスクエア"],
+    durationNote: "商業施設をゆっくり見て回る時間です",
   },
   {
     id: 21,
@@ -303,6 +355,8 @@ export const courses: Course[] = [
     description: "アートと商業施設を楽しむ雨天対応コース。屋内移動が中心です。",
     startPoint: "六本木駅",
     endPoint: "乃木坂駅",
+    waypoints: ["六本木ヒルズ", "東京ミッドタウン"],
+    durationNote: "アート鑑賞とショッピングを楽しむ時間です",
   },
   {
     id: 22,
@@ -315,6 +369,8 @@ export const courses: Course[] = [
     description: "屋根のあるアーケード街。雨でも活気ある下町の雰囲気を楽しめます。",
     startPoint: "上野駅",
     endPoint: "御徒町駅",
+    waypoints: ["アメヤ横丁"],
+    durationNote: "商店街で食べ歩きやショッピングを楽しむ時間です",
   },
 
   // 追加の季節限定コース
@@ -329,6 +385,8 @@ export const courses: Course[] = [
     description: "池の周りを新緑が彩る季節。ボートに乗るのもおすすめです。",
     startPoint: "吉祥寺駅",
     endPoint: "井の頭公園駅",
+    waypoints: ["井の頭恩賜公園", "井の頭池"],
+    durationNote: "公園内を散策し、ボート遊びなども楽しむ時間です",
   },
   {
     id: 24,
@@ -341,6 +399,8 @@ export const courses: Course[] = [
     description: "川沿いを歩きながらスカイツリーを眺める。夕方からがベストです。",
     startPoint: "浅草駅",
     endPoint: "とうきょうスカイツリー駅",
+    waypoints: ["吾妻橋", "隅田川テラス", "桜橋"],
+    durationNote: "川沿いをゆっくり散策し、夕涼みを楽しむ時間です",
   },
   {
     id: 25,
@@ -353,6 +413,8 @@ export const courses: Course[] = [
     description: "広大な庭園で多様な紅葉を楽しむ。都会とは思えない静けさです。",
     startPoint: "新宿御苑前駅",
     endPoint: "新宿三丁目駅",
+    waypoints: ["新宿御苑", "日本庭園", "フランス式整形庭園"],
+    durationNote: "広大な庭園内を散策し、休憩を含む時間です",
   },
   {
     id: 26,
@@ -365,6 +427,8 @@ export const courses: Course[] = [
     description: "厳かな雰囲気の古刹と蕎麦屋巡り。冬の澄んだ空気が心地よいコースです。",
     startPoint: "調布駅",
     endPoint: "深大寺",
+    waypoints: ["深大寺", "深大寺そば通り"],
+    durationNote: "参拝と蕎麦屋巡りを楽しむ時間です",
   },
 
   // 追加コース（春）
@@ -379,6 +443,8 @@ export const courses: Course[] = [
     description: "江戸時代の大名庭園で桜と新緑を楽しむ。水戸黄門ゆかりの地です。",
     startPoint: "後楽園駅",
     endPoint: "飯田橋駅",
+    waypoints: ["小石川後楽園"],
+    durationNote: "庭園内を散策し、桜と歴史を楽しむ時間です",
   },
   {
     id: 28,
@@ -391,6 +457,8 @@ export const courses: Course[] = [
     description: "情緒ある石畳の坂道と路地裏を散策。隠れ家的なカフェやレストランが魅力です。",
     startPoint: "飯田橋駅",
     endPoint: "神楽坂駅",
+    waypoints: ["神楽坂通り", "兵庫横丁"],
+    durationNote: "坂道や路地裏を散策し、カフェ休憩を楽しむ時間です",
   },
 
   // 追加コース（夏）
@@ -405,6 +473,8 @@ export const courses: Course[] = [
     description: "池と石が美しい回遊式庭園。木陰で涼みながらゆったり散策できます。",
     startPoint: "清澄白河駅",
     endPoint: "門前仲町駅",
+    waypoints: ["清澄庭園", "深川図書館"],
+    durationNote: "庭園内を散策し、カフェ休憩を楽しむ時間です",
   },
   {
     id: 30,
@@ -417,6 +487,8 @@ export const courses: Course[] = [
     description: "多摩川沿いの広々とした河川敷。川風が心地よい夏の散歩コースです。",
     startPoint: "二子玉川駅",
     endPoint: "二子新地駅",
+    waypoints: ["多摩川河川敷", "兵庫島公園"],
+    durationNote: "河川敷をゆっくり歩き、休憩する時間です",
   },
 
   // 追加コース（秋）
@@ -431,6 +503,8 @@ export const courses: Course[] = [
     description: "都内屈指の広さを誇る公園。紅葉の木々が美しく、ゆったり散策できます。",
     startPoint: "武蔵小金井駅",
     endPoint: "花小金井駅",
+    waypoints: ["小金井公園", "江戸東京たてもの園"],
+    durationNote: "広大な公園内を散策し、歴史建築も楽しむ時間です",
   },
   {
     id: 32,
@@ -443,6 +517,8 @@ export const courses: Course[] = [
     description: "おしゃれなショップやカフェが並ぶ街。落ち着いた雰囲気の散歩が楽しめます。",
     startPoint: "自由が丘駅",
     endPoint: "奥沢駅",
+    waypoints: ["ラ・ヴィータ", "自由が丘デパート"],
+    durationNote: "ショッピングやカフェ休憩を楽しむ時間です",
   },
 
   // 追加コース（冬）
@@ -457,6 +533,8 @@ export const courses: Course[] = [
     description: "冬のイルミネーションが美しい複合施設。おしゃれなレストランも充実です。",
     startPoint: "恵比寿駅",
     endPoint: "代官山駅",
+    waypoints: ["恵比寿ガーデンプレイス"],
+    durationNote: "イルミネーション鑑賞とカフェ休憩を楽しむ時間です",
   },
   {
     id: 34,
@@ -469,6 +547,8 @@ export const courses: Course[] = [
     description: "運河沿いの遊歩道を散策。近代的なビル群と水辺の景色が楽しめます。",
     startPoint: "品川駅",
     endPoint: "天王洲アイル駅",
+    waypoints: ["品川シーサイド", "天王洲ふれあい橋"],
+    durationNote: "運河沿いをゆっくり歩く時間です",
   },
 
   // オールシーズン追加
@@ -483,6 +563,8 @@ export const courses: Course[] = [
     description: "個性的なショップやライブハウスが並ぶサブカルチャーの街。散策が楽しい街です。",
     startPoint: "下北沢駅",
     endPoint: "世田谷代田駅",
+    waypoints: ["下北沢一番街", "下北沢南口商店街"],
+    durationNote: "古着屋やカフェ巡りを楽しむ時間です",
   },
   {
     id: 36,
@@ -495,6 +577,8 @@ export const courses: Course[] = [
     description: "アーケード商店街で雨の日でも快適。グルメやショッピングが楽しめます。",
     startPoint: "吉祥寺駅",
     endPoint: "吉祥寺駅北口",
+    waypoints: ["吉祥寺サンロード"],
+    durationNote: "商店街でグルメやショッピングを楽しむ時間です",
   },
 
   // 夜景コース（20個）
@@ -509,6 +593,8 @@ export const courses: Course[] = [
     description: "東京湾の夜景を一望できる橋上の遊歩道。夕暮れから夜にかけてが絶景です。",
     startPoint: "芝浦ふ頭駅",
     endPoint: "お台場海浜公園駅",
+    waypoints: ["レインボーブリッジ遊歩道"],
+    durationNote: "橋をゆっくり渡り、夜景を楽しむ時間です",
   },
   {
     id: 38,
@@ -521,6 +607,8 @@ export const courses: Course[] = [
     description: "ライトアップされた東京タワーを様々な角度から楽しむ夜景コース。",
     startPoint: "赤羽橋駅",
     endPoint: "神谷町駅",
+    waypoints: ["東京タワー", "芝公園"],
+    durationNote: "タワー周辺を散策し、夜景撮影を楽しむ時間です",
   },
   {
     id: 39,
@@ -533,6 +621,8 @@ export const courses: Course[] = [
     description: "ライトアップされたスカイツリーを眺めながら隅田川沿いを散策。",
     startPoint: "押上駅",
     endPoint: "浅草駅",
+    waypoints: ["東京スカイツリー", "隅田川テラス", "吾妻橋"],
+    durationNote: "夜景鑑賞やカフェ休憩を含む時間です",
   },
   {
     id: 40,
@@ -545,6 +635,8 @@ export const courses: Course[] = [
     description: "高層ビル群の夜景と電通本社ビルのイルミネーションが美しいエリア。",
     startPoint: "汐留駅",
     endPoint: "新橋駅",
+    waypoints: ["汐留シオサイト"],
+    durationNote: "ビル群の夜景をゆっくり楽しむ時間です",
   },
   {
     id: 41,
@@ -557,6 +649,8 @@ export const courses: Course[] = [
     description: "運河沿いの遊歩道から見る東京湾の夜景。レインボーブリッジも望めます。",
     startPoint: "豊洲駅",
     endPoint: "市場前駅",
+    waypoints: ["豊洲ぐるり公園", "ららぽーと豊洲"],
+    durationNote: "運河沿いを散策し、夜景を楽しむ時間です",
   },
   {
     id: 42,
@@ -569,6 +663,8 @@ export const courses: Course[] = [
     description: "運河沿いの遊歩道から眺める都心の夜景。静かで落ち着いた雰囲気です。",
     startPoint: "勝どき駅",
     endPoint: "晴海トリトン",
+    waypoints: ["朝潮運河", "晴海ふ頭公園"],
+    durationNote: "夜景を楽しみながらゆっくり歩く時間です",
   },
   {
     id: 43,
@@ -581,6 +677,8 @@ export const courses: Course[] = [
     description: "高層ビル群が作り出す都会的な夜景を楽しむ散歩コース。",
     startPoint: "新宿駅西口",
     endPoint: "都庁前駅",
+    waypoints: ["新宿住友ビル", "東京都庁"],
+    durationNote: "高層ビル街をゆっくり歩き、夜景を楽しむ時間です",
   },
   {
     id: 44,
@@ -593,6 +691,8 @@ export const courses: Course[] = [
     description: "品川のオフィス街の夜景とイルミネーションを楽しむ都市型散歩。",
     startPoint: "品川駅",
     endPoint: "北品川駅",
+    waypoints: ["品川インターシティ"],
+    durationNote: "オフィス街の夜景を楽しむ時間です",
   },
   {
     id: 45,
@@ -605,6 +705,8 @@ export const courses: Course[] = [
     description: "商業施設のイルミネーションと東京湾の夜景を楽しめるスポット。",
     startPoint: "有明駅",
     endPoint: "有明テニスの森駅",
+    waypoints: ["有明ガーデン"],
+    durationNote: "商業施設とウォーターフロントを楽しむ時間です",
   },
   {
     id: 46,
@@ -617,6 +719,8 @@ export const courses: Course[] = [
     description: "下町の夜の雰囲気ともんじゃ焼きの灯りが温かい散歩道。",
     startPoint: "月島駅",
     endPoint: "勝どき駅",
+    waypoints: ["もんじゃストリート", "月島西仲通り商店街"],
+    durationNote: "もんじゃ焼きを食べながら散策する時間です",
   },
   {
     id: 47,
@@ -629,6 +733,8 @@ export const courses: Course[] = [
     description: "運河沿いのボードウォークから見る水辺の夜景が美しいエリア。",
     startPoint: "天王洲アイル駅",
     endPoint: "品川シーサイド駅",
+    waypoints: ["天王洲ボードウォーク", "寺田倉庫"],
+    durationNote: "運河沿いを散策し、アート作品も楽しむ時間です",
   },
   {
     id: 48,
@@ -641,6 +747,8 @@ export const courses: Course[] = [
     description: "隅田川沿いの遊歩道からスカイツリーと橋のライトアップを楽しむ。",
     startPoint: "浅草駅",
     endPoint: "両国駅",
+    waypoints: ["隅田川テラス", "吾妻橋", "駒形橋"],
+    durationNote: "川沿いをゆっくり歩き、夜景を楽しむ時間です",
   },
   {
     id: 49,
@@ -653,6 +761,8 @@ export const courses: Course[] = [
     description: "高級ブランド店のウィンドウと街灯が作る洗練された夜の銀座を散策。",
     startPoint: "銀座駅",
     endPoint: "有楽町駅",
+    waypoints: ["銀座中央通り", "銀座和光"],
+    durationNote: "ウィンドウショッピングを楽しみながら散策する時間です",
   },
   {
     id: 50,
@@ -665,6 +775,8 @@ export const courses: Course[] = [
     description: "冬季限定のイルミネーションが川面に映る幻想的な夜景スポット。",
     startPoint: "中目黒駅",
     endPoint: "池尻大橋駅",
+    waypoints: ["目黒川沿い"],
+    durationNote: "イルミネーションをゆっくり楽しむ時間です",
   },
   {
     id: 51,
@@ -677,6 +789,8 @@ export const courses: Course[] = [
     description: "恐竜のような形のゲートブリッジを歩いて渡る。東京湾の夜景が壮大です。",
     startPoint: "新木場駅",
     endPoint: "若洲海浜公園",
+    waypoints: ["東京ゲートブリッジ"],
+    durationNote: "橋を渡り、東京湾の夜景を楽しむ時間です",
   },
   {
     id: 52,
@@ -689,6 +803,8 @@ export const courses: Course[] = [
     description: "東京湾に浮かぶ船と対岸の夜景を楽しめる静かなスポット。",
     startPoint: "竹芝駅",
     endPoint: "浜松町駅",
+    waypoints: ["竹芝桟橋"],
+    durationNote: "海辺をゆっくり散策する時間です",
   },
   {
     id: 53,
@@ -701,6 +817,8 @@ export const courses: Course[] = [
     description: "都心の高層ビル群の夜景とアートを楽しむ洗練された散歩道。",
     startPoint: "六本木一丁目駅",
     endPoint: "溜池山王駅",
+    waypoints: ["アークヒルズ"],
+    durationNote: "アートと夜景を楽しむ時間です",
   },
   {
     id: 54,
@@ -713,6 +831,8 @@ export const courses: Course[] = [
     description: "市場の活気と東京湾の夜景を同時に楽しめるユニークなコース。",
     startPoint: "市場前駅",
     endPoint: "豊洲駅",
+    waypoints: ["豊洲市場", "豊洲公園"],
+    durationNote: "市場周辺を散策し、夜景を楽しむ時間です",
   },
   {
     id: 55,
@@ -725,6 +845,8 @@ export const courses: Course[] = [
     description: "ネオンとLEDが輝く電気街の独特な夜景を楽しむサブカル散歩。",
     startPoint: "秋葉原駅",
     endPoint: "末広町駅",
+    waypoints: ["秋葉原電気街", "ラジオ会館"],
+    durationNote: "電気街を散策し、サブカルチャーを楽しむ時間です",
   },
   {
     id: 56,
@@ -737,6 +859,8 @@ export const courses: Course[] = [
     description: "ケヤキ並木のイルミネーションが美しい冬の定番夜景スポット。",
     startPoint: "表参道駅",
     endPoint: "原宿駅",
+    waypoints: ["表参道ヒルズ", "ケヤキ並木"],
+    durationNote: "イルミネーションをゆっくり楽しむ時間です",
   },
 
   // 春の季節限定コース（6個）
@@ -751,6 +875,8 @@ export const courses: Course[] = [
     description: "江戸時代から続く桜の名所。約650本の桜が咲き誇ります。",
     startPoint: "王子駅",
     endPoint: "西ヶ原駅",
+    waypoints: ["飛鳥山公園"],
+    durationNote: "公園内を散策し、桜を楽しむ時間です",
   },
   {
     id: 58,
@@ -763,6 +889,8 @@ export const courses: Course[] = [
     description: "池の周りを彩る桜と新緑。ボートからの眺めも楽しめます。",
     startPoint: "石神井公園駅",
     endPoint: "大泉学園駅",
+    waypoints: ["石神井公園", "三宝寺池", "石神井池"],
+    durationNote: "公園内を散策し、ボート遊びも楽しむ時間です",
   },
   {
     id: 59,
@@ -775,6 +903,8 @@ export const courses: Course[] = [
     description: "隅田川沿いに約1,000本の桜。スカイツリーと桜のコラボレーション。",
     startPoint: "浅草駅",
     endPoint: "押上駅",
+    waypoints: ["隅田公園", "桜橋"],
+    durationNote: "桜を鑑賞しながら川沿いを散策する時間です",
   },
   {
     id: 60,
@@ -787,6 +917,8 @@ export const courses: Course[] = [
     description: "広大な芝生と約840本の桜。ピクニックにも最適な公園です。",
     startPoint: "用賀駅",
     endPoint: "千歳船橋駅",
+    waypoints: ["砧公園", "ファミリーパーク"],
+    durationNote: "公園内を散策し、ピクニックを楽しむ時間です",
   },
   {
     id: 61,
@@ -799,6 +931,8 @@ export const courses: Course[] = [
     description: "約150本の桜のトンネル。地元で愛される隠れた名所です。",
     startPoint: "茗荷谷駅",
     endPoint: "江戸川橋駅",
+    waypoints: ["播磨坂さくら並木"],
+    durationNote: "桜のトンネルをゆっくり歩く時間です",
   },
   {
     id: 62,
@@ -811,6 +945,8 @@ export const courses: Course[] = [
     description: "広大な芝生広場と桜並木。ゆったりとした春の散歩が楽しめます。",
     startPoint: "光が丘駅",
     endPoint: "練馬春日町駅",
+    waypoints: ["光が丘公園"],
+    durationNote: "広々とした公園で桜を楽しむ時間です",
   },
 
   // 夏の季節限定コース（8個）
@@ -825,6 +961,8 @@ export const courses: Course[] = [
     description: "海沿いの公園で潮風を感じながら散策。観覧車からの眺めも楽しめます。",
     startPoint: "葛西臨海公園駅",
     endPoint: "葛西駅",
+    waypoints: ["葛西臨海公園", "ダイヤと花の大観覧車"],
+    durationNote: "公園内を散策し、観覧車も楽しむ時間です",
   },
   {
     id: 64,
@@ -837,6 +975,8 @@ export const courses: Course[] = [
     description: "木陰が多く夏でも涼しい公園。広い芝生でリフレッシュできます。",
     startPoint: "用賀駅",
     endPoint: "祖師ヶ谷大蔵駅",
+    waypoints: ["砧公園"],
+    durationNote: "木陰で涼みながら散策する時間です",
   },
   {
     id: 65,
@@ -849,6 +989,8 @@ export const courses: Course[] = [
     description: "都内最大級の水郷公園。水辺の涼しさと豊かな自然を楽しめます。",
     startPoint: "金町駅",
     endPoint: "亀有駅",
+    waypoints: ["水元公園", "小合溜井"],
+    durationNote: "水辺を散策し、自然を楽しむ時間です",
   },
   {
     id: 66,
@@ -861,6 +1003,8 @@ export const courses: Course[] = [
     description: "木陰が豊富なジョギングコース。スポーツ施設も充実しています。",
     startPoint: "駒沢大学駅",
     endPoint: "桜新町駅",
+    waypoints: ["駒沢オリンピック公園"],
+    durationNote: "公園内を散策し、運動も楽しむ時間です",
   },
   {
     id: 67,
@@ -873,6 +1017,8 @@ export const courses: Course[] = [
     description: "野川沿いの自然豊かな公園。川のせせらぎが涼しげです。",
     startPoint: "西武多摩川駅",
     endPoint: "武蔵境駅",
+    waypoints: ["野川公園", "野川"],
+    durationNote: "川沿いを散策し、自然を楽しむ時間です",
   },
   {
     id: 68,
@@ -885,6 +1031,8 @@ export const courses: Course[] = [
     description: "東京タワーを眺めながら木陰で涼む都心のオアシス。",
     startPoint: "芝公園駅",
     endPoint: "御成門駅",
+    waypoints: ["芝公園"],
+    durationNote: "木陰で涼みながら散策する時間です",
   },
   {
     id: 69,
@@ -897,6 +1045,8 @@ export const courses: Course[] = [
     description: "広大な芝生と大池。日暮里・舎人ライナーでアクセス便利です。",
     startPoint: "舎人公園駅",
     endPoint: "見沼代親水公園駅",
+    waypoints: ["舎人公園"],
+    durationNote: "広々とした公園を散策する時間です",
   },
   {
     id: 70,
@@ -909,6 +1059,8 @@ export const courses: Course[] = [
     description: "多摩川沿いの広々とした遊歩道。川風が心地よい夏の定番コース。",
     startPoint: "二子玉川駅",
     endPoint: "登戸駅",
+    waypoints: ["多摩川河川敷", "二子橋"],
+    durationNote: "河川敷をゆっくり歩き、川風を楽しむ時間です",
   },
 
   // 秋の季節限定コース（6個）
@@ -923,6 +1075,8 @@ export const courses: Course[] = [
     description: "都心から1時間の紅葉の名所。ケーブルカーで気軽にアクセスできます。",
     startPoint: "高尾山口駅",
     endPoint: "高尾山頂",
+    waypoints: ["高尾山ケーブルカー", "薬王院"],
+    durationNote: "ハイキングと紅葉鑑賞、参拝を楽しむ時間です",
   },
   {
     id: 72,
@@ -935,6 +1089,8 @@ export const courses: Course[] = [
     description: "崖線の地形を活かした庭園。紅葉の美しさは都内屈指です。",
     startPoint: "国分寺駅",
     endPoint: "西国分寺駅",
+    waypoints: ["殿ヶ谷戸庭園"],
+    durationNote: "庭園内をゆっくり散策し、紅葉を楽しむ時間です",
   },
   {
     id: 73,
@@ -947,6 +1103,8 @@ export const courses: Course[] = [
     description: "池の周りを彩る紅葉。ボートから眺める紅葉も格別です。",
     startPoint: "吉祥寺駅",
     endPoint: "井の頭公園駅",
+    waypoints: ["井の頭恩賜公園", "井の頭池"],
+    durationNote: "公園内を散策し、ボートで紅葉を楽しむ時間です",
   },
   {
     id: 74,
@@ -959,6 +1117,8 @@ export const courses: Course[] = [
     description: "洋館と日本庭園が融合。秋バラと紅葉の共演が見事です。",
     startPoint: "上中里駅",
     endPoint: "駒込駅",
+    waypoints: ["旧古河庭園"],
+    durationNote: "庭園内を散策し、バラと紅葉を楽しむ時間です",
   },
   {
     id: 75,
@@ -971,6 +1131,8 @@ export const courses: Course[] = [
     description: "潮入の池と紅葉のコントラスト。都心のビル群を背景にした紅葉が美しい。",
     startPoint: "汐留駅",
     endPoint: "新橋駅",
+    waypoints: ["浜離宮恩賜庭園"],
+    durationNote: "庭園内を散策し、紅葉を楽しむ時間です",
   },
   {
     id: 76,
@@ -983,6 +1145,8 @@ export const courses: Course[] = [
     description: "三宝寺池と石神井池の周りを彩る紅葉。静かな秋の散策が楽しめます。",
     startPoint: "石神井公園駅",
     endPoint: "大泉学園駅",
+    waypoints: ["石神井公園", "三宝寺池"],
+    durationNote: "公園内をゆっくり散策し、紅葉を楽しむ時間です",
   },
 
   // 冬の季節限定コース（6個）
@@ -997,6 +1161,8 @@ export const courses: Course[] = [
     description: "オフィス街のイルミネーションが幻想的。仕事帰りに立ち寄れます。",
     startPoint: "大手町駅",
     endPoint: "東京駅",
+    waypoints: ["大手町仲通り"],
+    durationNote: "イルミネーションをゆっくり楽しむ時間です",
   },
   {
     id: 78,
@@ -1009,6 +1175,8 @@ export const courses: Course[] = [
     description: "関東最大級のイルミネーション。550万球の光の世界です。",
     startPoint: "京王よみうりランド駅",
     endPoint: "よみうりランド",
+    waypoints: ["よみうりランド"],
+    durationNote: "イルミネーションを見て回る時間です",
   },
   {
     id: 79,
@@ -1021,6 +1189,8 @@ export const courses: Course[] = [
     description: "屋内でも楽しめるイルミネーション。音楽とのコラボレーションが見事です。",
     startPoint: "汐留駅",
     endPoint: "新橋駅",
+    waypoints: ["カレッタ汐留"],
+    durationNote: "イルミネーションと音楽を楽しむ時間です",
   },
   {
     id: 80,
@@ -1033,6 +1203,8 @@ export const courses: Course[] = [
     description: "冬の澄んだ空気の中、静かな公園を散策。都会の喧騒を忘れられます。",
     startPoint: "原宿駅",
     endPoint: "代々木公園駅",
+    waypoints: ["代々木公園"],
+    durationNote: "静かな公園をゆっくり散策する時間です",
   },
   {
     id: 81,
@@ -1045,6 +1217,8 @@ export const courses: Course[] = [
     description: "都心の憩いの場。冬の凛とした空気が心地よい散歩道です。",
     startPoint: "日比谷駅",
     endPoint: "有楽町駅",
+    waypoints: ["日比谷公園"],
+    durationNote: "公園内をゆっくり散策する時間です",
   },
   {
     id: 82,
@@ -1057,6 +1231,8 @@ export const courses: Course[] = [
     description: "洗練されたイルミネーションと冬の庭園。大人の冬散歩に最適です。",
     startPoint: "六本木駅",
     endPoint: "乃木坂駅",
+    waypoints: ["東京ミッドタウン", "檜町公園"],
+    durationNote: "イルミネーションと庭園を楽しむ時間です",
   },
 
   // グルメ散歩コース（8個）
@@ -1071,6 +1247,8 @@ export const courses: Course[] = [
     description: "都内最長の商店街で食べ歩き。コロッケや和菓子が人気です。",
     startPoint: "戸越銀座駅",
     endPoint: "戸越公園駅",
+    waypoints: ["戸越銀座商店街"],
+    durationNote: "食べ歩きとショッピングを楽しむ時間です",
   },
   {
     id: 84,
@@ -1083,6 +1261,8 @@ export const courses: Course[] = [
     description: "もんじゃ焼きの聖地。70店以上のもんじゃ屋が軒を連ねます。",
     startPoint: "月島駅",
     endPoint: "勝どき駅",
+    waypoints: ["もんじゃストリート"],
+    durationNote: "もんじゃ焼きを食べながら散策する時間です",
   },
   {
     id: 85,
@@ -1095,6 +1275,8 @@ export const courses: Course[] = [
     description: "おばあちゃんの原宿。塩大福や赤パンツが名物の下町商店街です。",
     startPoint: "巣鴨駅",
     endPoint: "庚申塚駅",
+    waypoints: ["巣鴨地蔵通り商店街"],
+    durationNote: "商店街で食べ歩きやショッピングを楽しむ時間です",
   },
   {
     id: 86,
@@ -1107,6 +1289,8 @@ export const courses: Course[] = [
     description: "相撲の街で本格ちゃんこ鍋。江戸東京博物館も楽しめます。",
     startPoint: "両国駅",
     endPoint: "森下駅",
+    waypoints: ["両国国技館", "江戸東京博物館"],
+    durationNote: "ちゃんこ鍋と観光を楽しむ時間です",
   },
   {
     id: 87,
@@ -1119,6 +1303,8 @@ export const courses: Course[] = [
     description: "深川めしと下町グルメ。富岡八幡宮の参拝も楽しめます。",
     startPoint: "門前仲町駅",
     endPoint: "清澄白河駅",
+    waypoints: ["富岡八幡宮", "深大寺通り"],
+    durationNote: "グルメと参拝を楽しむ時間です",
   },
   {
     id: 88,
@@ -1131,6 +1317,8 @@ export const courses: Course[] = [
     description: "老舗の和菓子店やせんべい屋が並ぶ情緒ある通り。",
     startPoint: "人形町駅",
     endPoint: "水天宮前駅",
+    waypoints: ["甘酒横丁"],
+    durationNote: "和菓子を食べながら散策する時間です",
   },
   {
     id: 89,
@@ -1143,6 +1331,8 @@ export const courses: Course[] = [
     description: "個性的な飲食店が集まるサブカルの街。古着屋巡りも楽しめます。",
     startPoint: "高円寺駅",
     endPoint: "新高円寺駅",
+    waypoints: ["高円寺純情商店街"],
+    durationNote: "グルメと古着屋巡りを楽しむ時間です",
   },
   {
     id: 90,
@@ -1155,6 +1345,8 @@ export const courses: Course[] = [
     description: "サブカルチャーの聖地。マニアックなショップとグルメが楽しめます。",
     startPoint: "中野駅",
     endPoint: "新中野駅",
+    waypoints: ["中野ブロードウェイ"],
+    durationNote: "サブカル探検とグルメを楽しむ時間です",
   },
 
   // 歴史・文化コース（6個）
@@ -1169,6 +1361,8 @@ export const courses: Course[] = [
     description: "寅さんの街。江戸情緒あふれる参道と帝釈天を巡ります。",
     startPoint: "柴又駅",
     endPoint: "京成金町駅",
+    waypoints: ["柴又帝釈天", "寅さん記念館"],
+    durationNote: "参拝と観光を楽しむ時間です",
   },
   {
     id: 92,
@@ -1181,6 +1375,8 @@ export const courses: Course[] = [
     description: "約3,000株のつつじが咲く歴史ある神社。文京区の隠れた名所です。",
     startPoint: "根津駅",
     endPoint: "千駄木駅",
+    waypoints: ["根津神社"],
+    durationNote: "つつじを鑑賞しながら参拝する時間です",
   },
   {
     id: 93,
@@ -1193,6 +1389,8 @@ export const courses: Course[] = [
     description: "徳川家の菩提寺と東京タワーのコントラスト。歴史と現代が交差します。",
     startPoint: "芝公園駅",
     endPoint: "大門駅",
+    waypoints: ["増上寺", "東京タワー"],
+    durationNote: "参拝と観光を楽しむ時間です",
   },
   {
     id: 94,
@@ -1205,6 +1403,8 @@ export const courses: Course[] = [
     description: "徳川綱吉ゆかりの寺院。静かな境内で心が落ち着きます。",
     startPoint: "護国寺駅",
     endPoint: "江戸川橋駅",
+    waypoints: ["護国寺"],
+    durationNote: "境内をゆっくり参拝する時間です",
   },
   {
     id: 95,
@@ -1217,6 +1417,8 @@ export const courses: Course[] = [
     description: "徳川家ゆかりの寺院群。上野公園の歴史散策が楽しめます。",
     startPoint: "上野駅",
     endPoint: "日暮里駅",
+    waypoints: ["寛永寺", "上野東照宮", "清水観音堂"],
+    durationNote: "寺社を巡り、歴史を学ぶ時間です",
   },
   {
     id: 96,
@@ -1229,6 +1431,8 @@ export const courses: Course[] = [
     description: "学問の神様と美しい藤の花。スカイツリーを背景にした境内が絶景です。",
     startPoint: "亀戸駅",
     endPoint: "錦糸町駅",
+    waypoints: ["亀戸天神社"],
+    durationNote: "藤の花を鑑賞しながら参拝する時間です",
   },
 
   // 雨天対応コース（4個）
@@ -1243,6 +1447,8 @@ export const courses: Course[] = [
     description: "水族館、展望台、ショッピングが楽しめる複合施設。雨でも一日遊べます。",
     startPoint: "池袋駅",
     endPoint: "東池袋駅",
+    waypoints: ["サンシャインシティ", "サンシャイン水族館"],
+    durationNote: "施設内を見て回り、ショッピングを楽しむ時間です",
   },
   {
     id: 98,
@@ -1255,6 +1461,8 @@ export const courses: Course[] = [
     description: "屋内型テーマパーク。中世ヨーロッパの街並みを再現した商業施設です。",
     startPoint: "青海駅",
     endPoint: "お台場海浜公園駅",
+    waypoints: ["パレットタウン", "チームラボボーダレス"],
+    durationNote: "屋内施設をゆっくり見て回る時間です",
   },
   {
     id: 99,
@@ -1267,6 +1475,8 @@ export const courses: Course[] = [
     description: "ショッピングとグルメが充実。雨の日でも快適に過ごせる商業施設です。",
     startPoint: "二子玉川駅",
     endPoint: "二子新地駅",
+    waypoints: ["二子玉川ライズ"],
+    durationNote: "ショッピングとグルメを楽しむ時間です",
   },
   {
     id: 100,
@@ -1279,5 +1489,7 @@ export const courses: Course[] = [
     description: "立川駅直結の商業施設。雨を気にせずショッピングが楽しめます。",
     startPoint: "立川駅",
     endPoint: "立川北駅",
+    waypoints: ["立川ルミネ"],
+    durationNote: "駅直結でショッピングを楽しむ時間です",
   },
 ];
