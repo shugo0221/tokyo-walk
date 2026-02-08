@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { courses, type Season, type WeatherStyle, type Duration, type Course, getGoogleMapsUrl } from "@/lib/courses";
+import { courses, type Season, type WeatherStyle, type Duration, type Course, getGoogleMapsUrl, formatDistance } from "@/lib/courses";
 
 export default function Home() {
   const [currentSeason, setCurrentSeason] = useState<Season>("春");
@@ -224,9 +224,14 @@ export default function Home() {
                 <h2 className="text-3xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent flex items-center gap-3">
                   <span className="text-4xl animate-float">✨</span> おすすめコース
                 </h2>
-                <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white text-lg font-bold px-6 py-3 rounded-full shadow-xl">
-                  ⏱️ {selectedCourse.duration}分
-                </span>
+                <div className="flex gap-3">
+                  <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white text-lg font-bold px-6 py-3 rounded-full shadow-xl">
+                    📏 {formatDistance(selectedCourse.distance)}
+                  </span>
+                  <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white text-lg font-bold px-6 py-3 rounded-full shadow-xl">
+                    ⏱️ {selectedCourse.duration}分
+                  </span>
+                </div>
               </div>
 
               <div className="mb-8 p-8 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-3xl shadow-inner border-2 border-white/50">
