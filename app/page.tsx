@@ -11,13 +11,31 @@ export default function Home() {
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [filteredCount, setFilteredCount] = useState<number>(0);
 
+  // 季節ごとの平均気温
+  const seasonTemperatures: Record<Season, number> = {
+    "春": 18,
+    "夏": 28,
+    "秋": 18,
+    "冬": 8,
+  };
+
+  // 季節を変更する関数（気温も自動設定）
+  const handleSeasonChange = (season: Season) => {
+    setCurrentSeason(season);
+    setTemperature(seasonTemperatures[season]);
+  };
+
   // 季節を自動判定
   useEffect(() => {
     const month = new Date().getMonth() + 1;
-    if (month >= 3 && month <= 5) setCurrentSeason("春");
-    else if (month >= 6 && month <= 8) setCurrentSeason("夏");
-    else if (month >= 9 && month <= 11) setCurrentSeason("秋");
-    else setCurrentSeason("冬");
+    let detectedSeason: Season;
+    if (month >= 3 && month <= 5) detectedSeason = "春";
+    else if (month >= 6 && month <= 8) detectedSeason = "夏";
+    else if (month >= 9 && month <= 11) detectedSeason = "秋";
+    else detectedSeason = "冬";
+
+    setCurrentSeason(detectedSeason);
+    setTemperature(seasonTemperatures[detectedSeason]);
   }, []);
 
   // フィルタリング関数
@@ -94,7 +112,7 @@ export default function Home() {
                 return (
                   <button
                     key={season}
-                    onClick={() => setCurrentSeason(season)}
+                    onClick={() => handleSeasonChange(season)}
                     className={`py-5 px-4 rounded-2xl font-bold transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 ${
                       currentSeason === season
                         ? "bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 text-white shadow-2xl scale-105"
