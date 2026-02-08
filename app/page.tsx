@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { courses, type Season, type WeatherStyle, type Duration, type Course } from "@/lib/courses";
+import { courses, type Season, type WeatherStyle, type Duration, type Course, getGoogleMapsUrl } from "@/lib/courses";
 
 export default function Home() {
   const [currentSeason, setCurrentSeason] = useState<Season>("春");
@@ -244,13 +244,32 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-4 mb-8">
                 <span className="text-base font-bold bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white px-6 py-3 rounded-full shadow-lg transform hover:scale-105 transition-transform">
                   {selectedCourse.seasons.join(" ・ ")}
                 </span>
                 <span className="text-base font-bold bg-gradient-to-r from-green-500 via-emerald-500 to-lime-500 text-white px-6 py-3 rounded-full shadow-lg transform hover:scale-105 transition-transform">
                   {selectedCourse.weatherStyles.join(" ・ ")}
                 </span>
+              </div>
+
+              {/* Google Mapボタン */}
+              <div className="flex gap-4">
+                <a
+                  href={getGoogleMapsUrl(selectedCourse)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-5 px-6 bg-gradient-to-r from-red-500 via-pink-500 to-rose-500 text-white rounded-2xl font-bold text-lg text-center hover:from-red-600 hover:via-pink-600 hover:to-rose-600 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3"
+                >
+                  <span className="text-2xl">📍</span>
+                  <span>Google Mapで見る</span>
+                </a>
+                <button
+                  onClick={randomizeCourse}
+                  className="py-5 px-8 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-bold text-lg hover:from-indigo-700 hover:to-purple-700 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                >
+                  🔄 再抽選
+                </button>
               </div>
             </div>
           </div>

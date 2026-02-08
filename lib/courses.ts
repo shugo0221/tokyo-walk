@@ -12,6 +12,18 @@ export interface Course {
   description: string;
 }
 
+// Google Mapsの検索URLを生成
+export function getGoogleMapsUrl(course: Course): string {
+  const query = encodeURIComponent(`${course.name} ${course.area}`);
+  return `https://www.google.com/maps/search/?api=1&query=${query}`;
+}
+
+// Google Maps埋め込みURLを生成
+export function getGoogleMapsEmbedUrl(course: Course): string {
+  const query = encodeURIComponent(`${course.name} ${course.area}`);
+  return `https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${query}`;
+}
+
 export const courses: Course[] = [
   // 春のコース
   {
