@@ -338,6 +338,58 @@ export default function Home() {
                 )}
               </div>
 
+              {/* 詳細情報 */}
+              {(selectedCourse.highlights || selectedCourse.recommendedTimes || selectedCourse.difficulty || selectedCourse.accessInfo) && (
+                <div className="mb-8 space-y-4">
+                  {/* 見どころポイント */}
+                  {selectedCourse.highlights && selectedCourse.highlights.length > 0 && (
+                    <div className="p-6 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 rounded-2xl shadow-md border border-amber-200">
+                      <h4 className="text-lg font-bold text-amber-900 mb-3 flex items-center gap-2">
+                        <span className="text-xl">📍</span> 見どころポイント
+                      </h4>
+                      <ul className="space-y-2">
+                        {selectedCourse.highlights.map((highlight, idx) => (
+                          <li key={idx} className="text-gray-700 flex items-start gap-2">
+                            <span className="text-amber-600 mt-1">✓</span>
+                            <span>{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* おすすめの時間帯・難易度・アクセス情報 */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {selectedCourse.recommendedTimes && selectedCourse.recommendedTimes.length > 0 && (
+                      <div className="p-4 bg-gradient-to-br from-sky-50 to-blue-50 rounded-xl shadow-md border border-sky-200">
+                        <h4 className="text-base font-bold text-sky-900 mb-2 flex items-center gap-2">
+                          <span className="text-lg">🕐</span> おすすめ時間帯
+                        </h4>
+                        <p className="text-gray-700 text-sm">{selectedCourse.recommendedTimes.join(" ・ ")}</p>
+                      </div>
+                    )}
+
+                    {selectedCourse.difficulty && (
+                      <div className="p-4 bg-gradient-to-br from-emerald-50 to-green-50 rounded-xl shadow-md border border-emerald-200">
+                        <h4 className="text-base font-bold text-emerald-900 mb-2 flex items-center gap-2">
+                          <span className="text-lg">💪</span> 難易度
+                        </h4>
+                        <p className="text-gray-700 text-sm">{selectedCourse.difficulty}</p>
+                      </div>
+                    )}
+
+                    {selectedCourse.accessInfo && (
+                      <div className="p-4 bg-gradient-to-br from-violet-50 to-purple-50 rounded-xl shadow-md border border-violet-200">
+                        <h4 className="text-base font-bold text-violet-900 mb-2 flex items-center gap-2">
+                          <span className="text-lg">🚇</span> アクセス
+                        </h4>
+                        <p className="text-gray-700 text-sm">{selectedCourse.accessInfo}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
               <div className="flex flex-wrap gap-4 mb-8">
                 <span className="text-base font-bold bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white px-6 py-3 rounded-full shadow-lg transform hover:scale-105 transition-transform">
                   {selectedCourse.seasons.join(" ・ ")}
