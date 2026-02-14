@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { courses, type Season, type WeatherStyle, type Duration, type Course, getGoogleMapsUrl, formatDistance } from "@/lib/courses";
+import { CourseImage } from "@/app/components/CourseImage";
 
 export default function Home() {
   const [currentSeason, setCurrentSeason] = useState<Season>("春");
@@ -12,6 +13,8 @@ export default function Home() {
   const [filteredCount, setFilteredCount] = useState<number>(0);
   const [history, setHistory] = useState<Course[]>([]);
   const [favorites, setFavorites] = useState<number[]>([]); // お気に入りコースのIDリスト
+  const [isLoadingWeather, setIsLoadingWeather] = useState<boolean>(false);
+  const [weatherError, setWeatherError] = useState<string | null>(null);
 
   // 季節ごとの平均気温
   const seasonTemperatures: Record<Season, number> = {
@@ -25,6 +28,56 @@ export default function Home() {
   const handleSeasonChange = (season: Season) => {
     setCurrentSeason(season);
     setTemperature(seasonTemperatures[season]);
+  };
+
+  // 条件をリセットする関数
+  const resetConditions = () => {
+    // 現在の月から季節を判定
+    const month = new Date().getMonth() + 1;
+    let detectedSeason: Season;
+    if (month >= 3 && month <= 5) detectedSeason = "春";
+    else if (month >= 6 && month <= 8) detectedSeason = "夏";
+    else if (month >= 9 && month <= 11) detectedSeason = "秋";
+    else detectedSeason = "冬";
+
+    setCurrentSeason(detectedSeason);
+    setTemperature(seasonTemperatures[detectedSeason]);
+    setWeather("晴天");
+    setDuration(60);
+  };
+
+  // 東京の現在の天気を取得する関数
+  const fetchWeather = async () => {
+    setIsLoadingWeather(true);
+    setWeatherError(null);
+
+    try {
+      const response = await fetch("/api/weather");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "天気情報の取得に失敗しました");
+      }
+
+      // 天候と気温を設定
+      setWeather(data.weatherStyle);
+      setTemperature(data.temperature);
+
+      // 気温に応じて季節も自動調整
+      if (data.temperature >= 25) {
+        setCurrentSeason("夏");
+      } else if (data.temperature >= 15) {
+        const month = new Date().getMonth() + 1;
+        setCurrentSeason(month >= 3 && month <= 5 ? "春" : "秋");
+      } else {
+        setCurrentSeason("冬");
+      }
+    } catch (error) {
+      console.error("天気取得エラー:", error);
+      setWeatherError(error instanceof Error ? error.message : "天気情報の取得に失敗しました");
+    } finally {
+      setIsLoadingWeather(false);
+    }
   };
 
   // 初期表示時：保存された条件と履歴を復元、なければ季節を自動判定
@@ -157,7 +210,16 @@ export default function Home() {
         {/* 条件設定カード */}
         <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-10 mb-10 border border-white/30 animate-fadeIn hover:shadow-3xl transition-shadow duration-500" style={{animationDelay: '0.1s'}}>
           <div className="text-center mb-10">
-            <h2 className="text-4xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">現在の状況</h2>
+            <div className="flex items-center justify-center gap-4 mb-2">
+              <h2 className="text-4xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">現在の状況</h2>
+              <button
+                onClick={resetConditions}
+                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-xl font-medium text-sm transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-md"
+              >
+                <span>🔄</span>
+                <span>リセット</span>
+              </button>
+            </div>
             <div className="w-24 h-1 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 mx-auto rounded-full"></div>
           </div>
 
@@ -210,6 +272,34 @@ export default function Home() {
               <span>❄️ -5°C</span>
               <span>🔥 40°C</span>
             </div>
+          </div>
+
+          {/* 天気取得ボタン */}
+          <div className="mb-8">
+            <button
+              onClick={fetchWeather}
+              disabled={isLoadingWeather}
+              className={`w-full py-4 px-6 rounded-2xl font-bold text-base transition-all duration-300 flex items-center justify-center gap-3 ${
+                isLoadingWeather
+                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                  : "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg hover:shadow-xl hover:scale-105"
+              }`}
+            >
+              {isLoadingWeather ? (
+                <>
+                  <span className="animate-spin">🌀</span>
+                  <span>取得中...</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-xl">🌤️</span>
+                  <span>東京の現在の天気を取得</span>
+                </>
+              )}
+            </button>
+            {weatherError && (
+              <p className="mt-2 text-sm text-red-500 text-center">{weatherError}</p>
+            )}
           </div>
 
           {/* 天候選択 */}
@@ -312,6 +402,9 @@ export default function Home() {
                   </span>
                 </div>
               </div>
+
+              {/* コース画像 */}
+              <CourseImage courseName={selectedCourse.name} areaName={selectedCourse.area} />
 
               <div className="mb-8 p-8 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-3xl shadow-inner border-2 border-white/50">
                 <h3 className="text-5xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4 leading-tight">
