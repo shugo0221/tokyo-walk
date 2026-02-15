@@ -255,6 +255,10 @@ export const courses: Course[] = [
     endPoint: "立川駅",
     waypoints: ["昭和記念公園", "かたらいのイチョウ並木", "日本庭園"],
     durationNote: "広大な公園内を散策し、休憩する時間です",
+    highlights: ["200m続く圧巻のイチョウ並木", "日本庭園で紅葉も楽しめる", "165ヘクタールの広大な敷地", "サイクリングも可能"],
+    recommendedTimes: ["昼", "夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "西立川駅から徒歩2分、入園料450円",
   },
 
   // 冬のコース
@@ -289,6 +293,10 @@ export const courses: Course[] = [
     endPoint: "築地駅",
     waypoints: ["築地場外市場"],
     durationNote: "食べ歩きとショッピングを楽しむ時間です",
+    highlights: ["新鮮な海鮮丼や寿司が食べられる", "玉子焼きの名店が多数", "400以上の店舗が軒を連ねる", "プロも通う食材の宝庫"],
+    recommendedTimes: ["朝", "昼"],
+    difficulty: "初心者向け",
+    accessInfo: "築地市場駅から徒歩1分、早朝から営業",
   },
   {
     id: 14,
@@ -341,6 +349,10 @@ export const courses: Course[] = [
     endPoint: "根津駅",
     waypoints: ["谷中銀座商店街", "夕やけだんだん"],
     durationNote: "商店街を散策し、食べ歩きを楽しむ時間です",
+    highlights: ["夕やけだんだんから見る夕景が絶景", "猫に出会える下町風情", "メンチカツや焼きせんべいが人気", "昭和レトロな雰囲気を満喫"],
+    recommendedTimes: ["昼", "夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "日暮里駅から徒歩5分、平坦な商店街",
   },
   {
     id: 17,
@@ -355,6 +367,10 @@ export const courses: Course[] = [
     endPoint: "表参道駅",
     waypoints: ["竹下通り", "明治神宮", "表参道ヒルズ"],
     durationNote: "ショッピングや休憩を楽しみながらの散策時間です",
+    highlights: ["竹下通りの最新トレンド","明治神宮の緑豊かな参道","表参道ヒルズの洗練された空間","おしゃれなカフェやショップが充実"],
+    recommendedTimes: ["昼","夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "原宿駅から徒歩1分、にぎやかな通り",
   },
 
   // 雨天対応コース
@@ -389,6 +405,10 @@ export const courses: Course[] = [
     endPoint: "新宿三丁目駅",
     waypoints: ["新宿サブナード", "メトロプロムナード"],
     durationNote: "地下街を探索し、グルメやショッピングを楽しむ時間です",
+    highlights: ["迷宮のような地下空間を探検","数百の飲食店やショップが集結","雨の日でも快適に散策","新宿駅からすべて直結"],
+    recommendedTimes: ["昼","夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "新宿駅西口直結、完全屋内",
   },
   {
     id: 20,
@@ -403,6 +423,10 @@ export const courses: Course[] = [
     endPoint: "渋谷ヒカリエ",
     waypoints: ["渋谷スクランブルスクエア"],
     durationNote: "商業施設をゆっくり見て回る時間です",
+    highlights: ["SHIBUYA SKYの360度パノラマ展望","渋谷の最新スポットを巡る","屋内施設で快適に散策","フォトジェニックなスポット多数"],
+    recommendedTimes: ["昼","夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "渋谷駅直結、展望台は入場料別途",
   },
   {
     id: 21,
@@ -417,6 +441,10 @@ export const courses: Course[] = [
     endPoint: "乃木坂駅",
     waypoints: ["六本木ヒルズ", "東京ミッドタウン"],
     durationNote: "アート鑑賞とショッピングを楽しむ時間です",
+    highlights: ["森美術館で現代アート鑑賞","東京シティビューの絶景","ミッドタウンの庭園が美しい","グルメやショッピングも充実"],
+    recommendedTimes: ["昼","夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "六本木駅直結、美術館は入館料別途",
   },
   {
     id: 22,
@@ -431,6 +459,10 @@ export const courses: Course[] = [
     endPoint: "御徒町駅",
     waypoints: ["アメヤ横丁"],
     durationNote: "商店街で食べ歩きやショッピングを楽しむ時間です",
+    highlights: ["活気あふれる下町商店街","鮮魚や乾物の専門店が多数","お菓子や雑貨のお土産探し","アーケードで雨でも安心"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "上野駅から徒歩1分、アーケード商店街",
   },
 
   // 追加の季節限定コース
@@ -447,6 +479,10 @@ export const courses: Course[] = [
     endPoint: "井の頭公園駅",
     waypoints: ["井の頭恩賜公園", "井の頭池"],
     durationNote: "公園内を散策し、ボート遊びなども楽しむ時間です",
+    highlights: ["ボートから眺める池の景色","新緑に囲まれた憩いの場","井の頭自然文化園も隣接","カフェやレストランが充実"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "吉祥寺駅から徒歩5分、平坦な公園",
   },
   {
     id: 24,
@@ -461,6 +497,10 @@ export const courses: Course[] = [
     endPoint: "とうきょうスカイツリー駅",
     waypoints: ["吾妻橋", "隅田川テラス", "桜橋"],
     durationNote: "川沿いをゆっくり散策し、夕涼みを楽しむ時間です",
+    highlights: ["スカイツリーを正面に眺める絶景","川沿いの遊歩道で夕涼み","隅田川に映る夕日が美しい","浅草の観光と組み合わせ可能"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "浅草駅から徒歩3分、平坦な遊歩道",
   },
   {
     id: 25,
@@ -475,6 +515,10 @@ export const courses: Course[] = [
     endPoint: "新宿三丁目駅",
     waypoints: ["新宿御苑", "日本庭園", "フランス式整形庭園"],
     durationNote: "広大な庭園内を散策し、休憩を含む時間です",
+    highlights: ["約1万本の木々が紅葉する","3つの庭園スタイルを楽しめる","都心とは思えない静寂","広々とした芝生でピクニック可"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "新宿御苑前駅から徒歩5分、入園料500円",
   },
   {
     id: 26,
@@ -489,6 +533,10 @@ export const courses: Course[] = [
     endPoint: "深大寺",
     waypoints: ["深大寺", "深大寺そば通り"],
     durationNote: "参拝と蕎麦屋巡りを楽しむ時間です",
+    highlights: ["厳かな古刹で心静かに参拝","名物の深大寺そばを堪能","神代植物公園も隣接","静かな森林浴が楽しめる"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "調布駅からバス15分、坂道あり",
   },
 
   // 追加コース（春）
@@ -505,6 +553,10 @@ export const courses: Course[] = [
     endPoint: "飯田橋駅",
     waypoints: ["小石川後楽園"],
     durationNote: "庭園内を散策し、桜と歴史を楽しむ時間です",
+    highlights: ["江戸時代の大名庭園を堪能","水戸光圀ゆかりの歴史","四季折々の花々が咲く","東京ドームも近く観光に便利"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "後楽園駅から徒歩3分、入園料300円",
   },
   {
     id: 28,
@@ -519,6 +571,10 @@ export const courses: Course[] = [
     endPoint: "神楽坂駅",
     waypoints: ["神楽坂通り", "兵庫横丁"],
     durationNote: "坂道や路地裏を散策し、カフェ休憩を楽しむ時間です",
+    highlights: ["情緒ある石畳の坂道","隠れ家カフェやレストランが充実","路地裏散策が楽しい","フランス風の街並みも魅力"],
+    recommendedTimes: ["昼","夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "飯田橋駅から徒歩3分、坂道あり",
   },
 
   // 追加コース（夏）
@@ -535,6 +591,10 @@ export const courses: Course[] = [
     endPoint: "門前仲町駅",
     waypoints: ["清澄庭園", "深川図書館"],
     durationNote: "庭園内を散策し、カフェ休憩を楽しむ時間です",
+    highlights: ["全国から集めた名石が美しい","池を巡る回遊式庭園","カフェの街・清澄白河も楽しめる","静かで落ち着いた雰囲気"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "清澄白河駅から徒歩3分、入園料150円",
   },
   {
     id: 30,
@@ -549,6 +609,10 @@ export const courses: Course[] = [
     endPoint: "二子新地駅",
     waypoints: ["多摩川河川敷", "兵庫島公園"],
     durationNote: "河川敷をゆっくり歩き、休憩する時間です",
+    highlights: ["多摩川の開放的な景色","河川敷でBBQも可能","自然を感じながらリフレッシュ","二子玉川ライズでショッピングも"],
+    recommendedTimes: ["朝","昼","夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "二子玉川駅から徒歩5分、平坦な河川敷",
   },
 
   // 追加コース（秋）
@@ -565,6 +629,10 @@ export const courses: Course[] = [
     endPoint: "花小金井駅",
     waypoints: ["小金井公園", "江戸東京たてもの園"],
     durationNote: "広大な公園内を散策し、歴史建築も楽しむ時間です",
+    highlights: ["80ヘクタールの広大な公園","江戸東京たてもの園で歴史体験","紅葉の名所として有名","サイクリングも楽しめる"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "武蔵小金井駅からバス5分、入園無料",
   },
   {
     id: 32,
@@ -579,6 +647,10 @@ export const courses: Course[] = [
     endPoint: "奥沢駅",
     waypoints: ["ラ・ヴィータ", "自由が丘デパート"],
     durationNote: "ショッピングやカフェ休憩を楽しむ時間です",
+    highlights: ["おしゃれなカフェが多数","ラ・ヴィータのヴェネツィア風街並み","スイーツの名店巡り","落ち着いた住宅街の雰囲気"],
+    recommendedTimes: ["昼","夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "自由が丘駅から徒歩1分、平坦な道",
   },
 
   // 追加コース（冬）
@@ -595,6 +667,10 @@ export const courses: Course[] = [
     endPoint: "代官山駅",
     waypoints: ["恵比寿ガーデンプレイス"],
     durationNote: "イルミネーション鑑賞とカフェ休憩を楽しむ時間です",
+    highlights: ["バカラのシャンデリアが輝く","冬季イルミネーションが美しい","高級レストランでディナー","代官山へも徒歩圏内"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "恵比寿駅から動く歩道で5分",
   },
   {
     id: 34,
@@ -609,6 +685,10 @@ export const courses: Course[] = [
     endPoint: "天王洲アイル駅",
     waypoints: ["品川シーサイド", "天王洲ふれあい橋"],
     durationNote: "運河沿いをゆっくり歩く時間です",
+    highlights: ["運河沿いの近代的な景観","天王洲アイルへ続く遊歩道","水辺のカフェで休憩","オフィス街と水辺のコントラスト"],
+    recommendedTimes: ["昼","夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "品川駅から徒歩10分、平坦な遊歩道",
   },
 
   // オールシーズン追加
@@ -625,6 +705,10 @@ export const courses: Course[] = [
     endPoint: "世田谷代田駅",
     waypoints: ["下北沢一番街", "下北沢南口商店街"],
     durationNote: "古着屋やカフェ巡りを楽しむ時間です",
+    highlights: ["個性的な古着屋が多数","ライブハウスやカフェ文化","サブカルチャーの発信地","路地裏散策が楽しい"],
+    recommendedTimes: ["昼","夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "下北沢駅から徒歩1分、坂道あり",
   },
   {
     id: 36,
@@ -639,6 +723,10 @@ export const courses: Course[] = [
     endPoint: "吉祥寺駅北口",
     waypoints: ["吉祥寺サンロード"],
     durationNote: "商店街でグルメやショッピングを楽しむ時間です",
+    highlights: ["アーケードで雨でも安心","地元に愛される商店街","グルメやスイーツが充実","井の頭公園へのアクセス良好"],
+    recommendedTimes: ["昼","夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "吉祥寺駅から徒歩1分、アーケード商店街",
   },
 
   // 夜景コース（20個）
@@ -709,6 +797,10 @@ export const courses: Course[] = [
     endPoint: "新橋駅",
     waypoints: ["汐留シオサイト"],
     durationNote: "ビル群の夜景をゆっくり楽しむ時間です",
+    highlights: ["高層ビル群の夜景","電通ビルのイルミネーション","浜離宮への通り道","日本テレビの大時計も見られる"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "汐留駅直結、平坦な歩行者デッキ",
   },
   {
     id: 41,
@@ -723,6 +815,10 @@ export const courses: Course[] = [
     endPoint: "市場前駅",
     waypoints: ["豊洲ぐるり公園", "ららぽーと豊洲"],
     durationNote: "運河沿いを散策し、夜景を楽しむ時間です",
+    highlights: ["レインボーブリッジを一望","運河沿いの夜景が美しい","ららぽーと豊洲でショッピング","芝生広場でくつろげる"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "豊洲駅から徒歩5分、平坦な遊歩道",
   },
   {
     id: 42,
@@ -737,6 +833,10 @@ export const courses: Course[] = [
     endPoint: "晴海トリトン",
     waypoints: ["朝潮運河", "晴海ふ頭公園"],
     durationNote: "夜景を楽しみながらゆっくり歩く時間です",
+    highlights: ["静かな運河沿いの遊歩道","選手村跡地のオリンピックレガシー","高層マンション群の夜景","穴場の夜景スポット"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "勝どき駅から徒歩5分、平坦な道",
   },
   {
     id: 43,
@@ -751,6 +851,10 @@ export const courses: Course[] = [
     endPoint: "都庁前駅",
     waypoints: ["新宿住友ビル", "東京都庁"],
     durationNote: "高層ビル街をゆっくり歩き、夜景を楽しむ時間です",
+    highlights: ["都庁展望室は無料で夜景鑑賞","超高層ビル群を見上げる","新宿の煌めく夜景","都庁展望室からの眺めは必見"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "新宿駅西口から徒歩10分、都庁展望室無料",
   },
   {
     id: 44,
@@ -765,6 +869,10 @@ export const courses: Course[] = [
     endPoint: "北品川駅",
     waypoints: ["品川インターシティ"],
     durationNote: "オフィス街の夜景を楽しむ時間です",
+    highlights: ["品川駅直結で便利","運河沿いの夜景","ホテルやレストランが充実","オフィス街のライトアップ"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "品川駅直結、平坦な歩行者デッキ",
   },
   {
     id: 45,
@@ -779,6 +887,10 @@ export const courses: Course[] = [
     endPoint: "有明テニスの森駅",
     waypoints: ["有明ガーデン"],
     durationNote: "商業施設とウォーターフロントを楽しむ時間です",
+    highlights: ["商業施設のイルミネーション","東京湾の夜景を一望","ショッピングと夜景を同時に","有明アリーナも近い"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "有明駅から徒歩3分",
   },
   {
     id: 46,
@@ -793,6 +905,10 @@ export const courses: Course[] = [
     endPoint: "勝どき駅",
     waypoints: ["もんじゃストリート", "月島西仲通り商店街"],
     durationNote: "もんじゃ焼きを食べながら散策する時間です",
+    highlights: ["70店以上のもんじゃ屋","下町の温かい雰囲気","食後の運河散策が気持ちいい","夜も賑わう商店街"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "月島駅から徒歩1分",
   },
   {
     id: 47,
@@ -807,6 +923,10 @@ export const courses: Course[] = [
     endPoint: "品川シーサイド駅",
     waypoints: ["天王洲ボードウォーク", "寺田倉庫"],
     durationNote: "運河沿いを散策し、アート作品も楽しむ時間です",
+    highlights: ["水辺のボードウォーク","アート作品が点在","倉庫街のおしゃれな雰囲気","静かな運河の夜景"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "天王洲アイル駅から徒歩3分",
   },
   {
     id: 48,
@@ -821,6 +941,10 @@ export const courses: Course[] = [
     endPoint: "両国駅",
     waypoints: ["隅田川テラス", "吾妻橋", "駒形橋"],
     durationNote: "川沿いをゆっくり歩き、夜景を楽しむ時間です",
+    highlights: ["スカイツリーのライトアップ","橋のイルミネーション","川面に映る光が幻想的","浅草からの続きにおすすめ"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "浅草駅から徒歩3分、川沿いの遊歩道",
   },
   {
     id: 49,
@@ -835,6 +959,10 @@ export const courses: Course[] = [
     endPoint: "有楽町駅",
     waypoints: ["銀座中央通り", "銀座和光"],
     durationNote: "ウィンドウショッピングを楽しみながら散策する時間です",
+    highlights: ["高級ブランド店のウィンドウ","和光の時計塔が美しい","歩行者天国の週末がおすすめ","カフェやバーも充実"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "銀座駅から徒歩1分、平坦な通り",
   },
   {
     id: 50,
@@ -849,6 +977,10 @@ export const courses: Course[] = [
     endPoint: "池尻大橋駅",
     waypoints: ["目黒川沿い"],
     durationNote: "イルミネーションをゆっくり楽しむ時間です",
+    highlights: ["川面に映るイルミネーション","冬季限定の幻想的な光景","デートスポットとして人気","周辺カフェで温まれる"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "中目黒駅から徒歩1分、冬季限定",
   },
   {
     id: 51,
@@ -863,6 +995,10 @@ export const courses: Course[] = [
     endPoint: "若洲海浜公園",
     waypoints: ["東京ゲートブリッジ"],
     durationNote: "橋を渡り、東京湾の夜景を楽しむ時間です",
+    highlights: ["恐竜のような橋の形状","東京湾の大パノラマ","橋を歩いて渡れる貴重な体験","壮大な夜景を堪能"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "中級者向け",
+    accessInfo: "新木場駅からバス20分、橋上は風が強い",
   },
   {
     id: 52,
@@ -877,6 +1013,10 @@ export const courses: Course[] = [
     endPoint: "浜松町駅",
     waypoints: ["竹芝桟橋"],
     durationNote: "海辺をゆっくり散策する時間です",
+    highlights: ["東京湾の静かな夜景","離島行きフェリー乗り場","穴場のウォーターフロント","竹芝客船ターミナルの雰囲気"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "竹芝駅から徒歩3分",
   },
   {
     id: 53,
@@ -891,6 +1031,10 @@ export const courses: Course[] = [
     endPoint: "溜池山王駅",
     waypoints: ["アークヒルズ"],
     durationNote: "アートと夜景を楽しむ時間です",
+    highlights: ["高層ビルに囲まれた庭園","アート作品が点在","六本木と赤坂の夜景","落ち着いた大人の雰囲気"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "六本木一丁目駅直結",
   },
   {
     id: 54,
@@ -905,6 +1049,10 @@ export const courses: Course[] = [
     endPoint: "豊洲駅",
     waypoints: ["豊洲市場", "豊洲公園"],
     durationNote: "市場周辺を散策し、夜景を楽しむ時間です",
+    highlights: ["早朝の市場の活気（翌朝）","運河沿いの夜景","豊洲公園からの眺め","新しい東京の水辺エリア"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "市場前駅から徒歩1分",
   },
   {
     id: 55,
@@ -919,6 +1067,10 @@ export const courses: Course[] = [
     endPoint: "末広町駅",
     waypoints: ["秋葉原電気街", "ラジオ会館"],
     durationNote: "電気街を散策し、サブカルチャーを楽しむ時間です",
+    highlights: ["ネオンとLEDが輝く独特な夜景","アニメ・ゲームの聖地","電気街の活気ある雰囲気","サブカルチャーを体感"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "秋葉原駅から徒歩1分",
   },
   {
     id: 56,
@@ -933,6 +1085,10 @@ export const courses: Course[] = [
     endPoint: "原宿駅",
     waypoints: ["表参道ヒルズ", "ケヤキ並木"],
     durationNote: "イルミネーションをゆっくり楽しむ時間です",
+    highlights: ["ケヤキ並木のイルミネーション","高級ブランド店のディスプレイ","冬の定番デートスポット","表参道ヒルズでショッピング"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "表参道駅から徒歩1分、冬季限定",
   },
 
   // 春の季節限定コース（6個）
@@ -949,6 +1105,10 @@ export const courses: Course[] = [
     endPoint: "西ヶ原駅",
     waypoints: ["飛鳥山公園"],
     durationNote: "公園内を散策し、桜を楽しむ時間です",
+    highlights: ["約650本の桜が咲き誇る","江戸時代からの桜の名所","飛鳥山モノレールも楽しい","北区の桜の名所として有名"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "王子駅から徒歩1分、公園内は坂あり",
   },
   {
     id: 58,
@@ -963,6 +1123,10 @@ export const courses: Course[] = [
     endPoint: "大泉学園駅",
     waypoints: ["石神井公園", "三宝寺池", "石神井池"],
     durationNote: "公園内を散策し、ボート遊びも楽しむ時間です",
+    highlights: ["2つの池を巡る散策コース","ボートから眺める桜","野鳥観察も楽しめる","静かな住宅街の中のオアシス"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "石神井公園駅から徒歩7分",
   },
   {
     id: 59,
@@ -977,6 +1141,10 @@ export const courses: Course[] = [
     endPoint: "押上駅",
     waypoints: ["隅田公園", "桜橋"],
     durationNote: "桜を鑑賞しながら川沿いを散策する時間です",
+    highlights: ["約1,000本の桜並木","スカイツリーと桜のコラボ","桜まつり期間は屋台も出店","浅草観光と組み合わせ可能"],
+    recommendedTimes: ["朝","昼","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "浅草駅から徒歩5分、平坦な河川敷",
   },
   {
     id: 60,
@@ -991,6 +1159,10 @@ export const courses: Course[] = [
     endPoint: "千歳船橋駅",
     waypoints: ["砧公園", "ファミリーパーク"],
     durationNote: "公園内を散策し、ピクニックを楽しむ時間です",
+    highlights: ["約840本の桜","広大な芝生でピクニック","ファミリーに人気","静かにお花見を楽しめる"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "用賀駅からバス10分、広大な公園",
   },
   {
     id: 61,
@@ -1005,6 +1177,10 @@ export const courses: Course[] = [
     endPoint: "江戸川橋駅",
     waypoints: ["播磨坂さくら並木"],
     durationNote: "桜のトンネルをゆっくり歩く時間です",
+    highlights: ["約150本の桜のトンネル","地元で愛される隠れた名所","桜まつりも開催","穴場の桜スポット"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "茗荷谷駅から徒歩5分、坂道あり",
   },
   {
     id: 62,
@@ -1019,6 +1195,10 @@ export const courses: Course[] = [
     endPoint: "練馬春日町駅",
     waypoints: ["光が丘公園"],
     durationNote: "広々とした公園で桜を楽しむ時間です",
+    highlights: ["広大な芝生広場","桜並木のトンネル","スポーツ施設も充実","家族でのんびり過ごせる"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "光が丘駅から徒歩5分",
   },
 
   // 夏の季節限定コース（8個）
@@ -1035,6 +1215,10 @@ export const courses: Course[] = [
     endPoint: "葛西駅",
     waypoints: ["葛西臨海公園", "ダイヤと花の大観覧車"],
     durationNote: "公園内を散策し、観覧車も楽しむ時間です",
+    highlights: ["ダイヤと花の大観覧車","水族館も楽しめる","海風が心地よい","バーベキュー広場もあり"],
+    recommendedTimes: ["朝","昼","夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "葛西臨海公園駅から徒歩1分",
   },
   {
     id: 64,
@@ -1049,6 +1233,10 @@ export const courses: Course[] = [
     endPoint: "祖師ヶ谷大蔵駅",
     waypoints: ["砧公園"],
     durationNote: "木陰で涼みながら散策する時間です",
+    highlights: ["木陰が豊富で涼しい","広い芝生でリフレッシュ","世田谷美術館も隣接","静かにくつろげる"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "用賀駅からバス10分",
   },
   {
     id: 65,
@@ -1063,6 +1251,10 @@ export const courses: Course[] = [
     endPoint: "亀有駅",
     waypoints: ["水元公園", "小合溜井"],
     durationNote: "水辺を散策し、自然を楽しむ時間です",
+    highlights: ["都内最大級の水郷公園","ポプラ並木が美しい","釣りやバードウォッチング","広大な自然を満喫"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "金町駅からバス20分",
   },
   {
     id: 66,
@@ -1077,6 +1269,10 @@ export const courses: Course[] = [
     endPoint: "桜新町駅",
     waypoints: ["駒沢オリンピック公園"],
     durationNote: "公園内を散策し、運動も楽しむ時間です",
+    highlights: ["オリンピック施設のある公園","ジョギングコースが整備","木陰が多く涼しい","スポーツを楽しめる"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "駒沢大学駅から徒歩15分",
   },
   {
     id: 67,
@@ -1091,6 +1287,10 @@ export const courses: Course[] = [
     endPoint: "武蔵境駅",
     waypoints: ["野川公園", "野川"],
     durationNote: "川沿いを散策し、自然を楽しむ時間です",
+    highlights: ["野川のせせらぎ","自然観察園も楽しめる","木陰で涼む","バーベキュー広場もあり"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "西武多摩川駅から徒歩15分",
   },
   {
     id: 68,
@@ -1105,6 +1305,10 @@ export const courses: Course[] = [
     endPoint: "御成門駅",
     waypoints: ["芝公園"],
     durationNote: "木陰で涼みながら散策する時間です",
+    highlights: ["東京タワーを眺めながら涼む","歴史ある都市公園","増上寺も近い","都心のオアシス"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "芝公園駅から徒歩2分",
   },
   {
     id: 69,
@@ -1119,6 +1323,10 @@ export const courses: Course[] = [
     endPoint: "見沼代親水公園駅",
     waypoints: ["舎人公園"],
     durationNote: "広々とした公園を散策する時間です",
+    highlights: ["日暮里舎人ライナーでアクセス","大池を囲む広大な芝生","スポーツ施設も充実","穴場の大型公園"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "舎人公園駅から徒歩1分",
   },
   {
     id: 70,
@@ -1133,6 +1341,10 @@ export const courses: Course[] = [
     endPoint: "登戸駅",
     waypoints: ["多摩川河川敷", "二子橋"],
     durationNote: "河川敷をゆっくり歩き、川風を楽しむ時間です",
+    highlights: ["多摩川の開放的な景色","サイクリングも可能","川風が心地よい","神奈川県側へも渡れる"],
+    recommendedTimes: ["朝","昼","夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "二子玉川駅から徒歩5分、平坦な河川敷",
   },
 
   // 秋の季節限定コース（6個）
@@ -1149,6 +1361,10 @@ export const courses: Course[] = [
     endPoint: "高尾山頂",
     waypoints: ["高尾山ケーブルカー", "薬王院"],
     durationNote: "ハイキングと紅葉鑑賞、参拝を楽しむ時間です",
+    highlights: ["ミシュラン三ツ星の山","ケーブルカーで楽々アクセス","薬王院で参拝","紅葉の名所として有名"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "中級者向け",
+    accessInfo: "高尾山口駅から徒歩5分、山道あり",
   },
   {
     id: 72,
@@ -1163,6 +1379,10 @@ export const courses: Course[] = [
     endPoint: "西国分寺駅",
     waypoints: ["殿ヶ谷戸庭園"],
     durationNote: "庭園内をゆっくり散策し、紅葉を楽しむ時間です",
+    highlights: ["崖線地形を活かした庭園","紅葉の美しさは都内屈指","湧水池が見どころ","穴場の紅葉スポット"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "国分寺駅から徒歩2分、入園料150円",
   },
   {
     id: 73,
@@ -1177,6 +1397,10 @@ export const courses: Course[] = [
     endPoint: "井の頭公園駅",
     waypoints: ["井の頭恩賜公園", "井の頭池"],
     durationNote: "公園内を散策し、ボートで紅葉を楽しむ時間です",
+    highlights: ["池の周りを彩る紅葉","ボートから眺める紅葉","動物園も隣接","吉祥寺散策も楽しめる"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "吉祥寺駅から徒歩5分",
   },
   {
     id: 74,
@@ -1191,6 +1415,10 @@ export const courses: Course[] = [
     endPoint: "駒込駅",
     waypoints: ["旧古河庭園"],
     durationNote: "庭園内を散策し、バラと紅葉を楽しむ時間です",
+    highlights: ["洋館と日本庭園の融合","秋バラと紅葉の共演","大正ロマンの雰囲気","写真映えスポット多数"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "上中里駅から徒歩7分、入園料150円",
   },
   {
     id: 75,
@@ -1205,6 +1433,10 @@ export const courses: Course[] = [
     endPoint: "新橋駅",
     waypoints: ["浜離宮恩賜庭園"],
     durationNote: "庭園内を散策し、紅葉を楽しむ時間です",
+    highlights: ["潮入の池と紅葉","都心のビル群を背景に紅葉","お茶屋で抹茶を楽しめる","築地市場からも近い"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "汐留駅から徒歩7分、入園料300円",
   },
   {
     id: 76,
@@ -1219,6 +1451,10 @@ export const courses: Course[] = [
     endPoint: "大泉学園駅",
     waypoints: ["石神井公園", "三宝寺池"],
     durationNote: "公園内をゆっくり散策し、紅葉を楽しむ時間です",
+    highlights: ["三宝寺池と石神井池","静かな紅葉散策","野鳥観察も楽しめる","落ち着いた雰囲気"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "石神井公園駅から徒歩7分",
   },
 
   // 冬の季節限定コース（6個）
@@ -1235,6 +1471,10 @@ export const courses: Course[] = [
     endPoint: "東京駅",
     waypoints: ["大手町仲通り"],
     durationNote: "イルミネーションをゆっくり楽しむ時間です",
+    highlights: ["オフィス街のイルミネーション","東京駅まで歩いて行ける","仕事帰りに立ち寄れる","皇居も近い"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "大手町駅から徒歩1分",
   },
   {
     id: 78,
@@ -1249,6 +1489,10 @@ export const courses: Course[] = [
     endPoint: "よみうりランド",
     waypoints: ["よみうりランド"],
     durationNote: "イルミネーションを見て回る時間です",
+    highlights: ["550万球の圧巻のイルミネーション","関東最大級の規模","遊園地アトラクションも","スカイシャトルからの眺めも"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "京王よみうりランド駅からゴンドラ10分、入園料別途",
   },
   {
     id: 79,
@@ -1263,6 +1507,10 @@ export const courses: Course[] = [
     endPoint: "新橋駅",
     waypoints: ["カレッタ汐留"],
     durationNote: "イルミネーションと音楽を楽しむ時間です",
+    highlights: ["屋内でも楽しめる","音楽との美しいコラボレーション","雨でも安心","新橋グルメも楽しめる"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "汐留駅直結、無料",
   },
   {
     id: 80,
@@ -1277,6 +1525,10 @@ export const courses: Course[] = [
     endPoint: "代々木公園駅",
     waypoints: ["代々木公園"],
     durationNote: "静かな公園をゆっくり散策する時間です",
+    highlights: ["冬の澄んだ空気で散策","明治神宮も近い","静かな公園でリフレッシュ","広い芝生でくつろげる"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "原宿駅から徒歩3分",
   },
   {
     id: 81,
@@ -1291,6 +1543,10 @@ export const courses: Course[] = [
     endPoint: "有楽町駅",
     waypoints: ["日比谷公園"],
     durationNote: "公園内をゆっくり散策する時間です",
+    highlights: ["都心の憩いの場","冬の凛とした空気","日比谷野外音楽堂も近い","有楽町でショッピングも"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "日比谷駅から徒歩2分",
   },
   {
     id: 82,
@@ -1305,6 +1561,10 @@ export const courses: Course[] = [
     endPoint: "乃木坂駅",
     waypoints: ["東京ミッドタウン", "檜町公園"],
     durationNote: "イルミネーションと庭園を楽しむ時間です",
+    highlights: ["洗練されたイルミネーション","スターライトガーデンが美しい","美術館やショップも充実","大人の冬散歩に最適"],
+    recommendedTimes: ["夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "六本木駅から徒歩5分",
   },
 
   // グルメ散歩コース（8個）
@@ -1321,6 +1581,10 @@ export const courses: Course[] = [
     endPoint: "戸越公園駅",
     waypoints: ["戸越銀座商店街"],
     durationNote: "食べ歩きとショッピングを楽しむ時間です",
+    highlights: ["都内最長1.3kmの商店街","コロッケグランプリ常連店","食べ歩きに最適","下町情緒あふれる雰囲気"],
+    recommendedTimes: ["昼","夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "戸越銀座駅から徒歩1分",
   },
   {
     id: 84,
@@ -1335,6 +1599,10 @@ export const courses: Course[] = [
     endPoint: "勝どき駅",
     waypoints: ["もんじゃストリート"],
     durationNote: "もんじゃ焼きを食べながら散策する時間です",
+    highlights: ["70店以上のもんじゃ屋","元祖もんじゃを堪能","佃煮も名物","下町情緒あふれる"],
+    recommendedTimes: ["昼","夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "月島駅から徒歩1分",
   },
   {
     id: 85,
@@ -1349,6 +1617,10 @@ export const courses: Course[] = [
     endPoint: "庚申塚駅",
     waypoints: ["巣鴨地蔵通り商店街"],
     durationNote: "商店街で食べ歩きやショッピングを楽しむ時間です",
+    highlights: ["とげぬき地蔵で有名","塩大福の名店が多数","赤パンツが名物","毎月4の日は縁日"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "巣鴨駅から徒歩5分",
   },
   {
     id: 86,
@@ -1363,6 +1635,10 @@ export const courses: Course[] = [
     endPoint: "森下駅",
     waypoints: ["両国国技館", "江戸東京博物館"],
     durationNote: "ちゃんこ鍋と観光を楽しむ時間です",
+    highlights: ["元力士が営むちゃんこ屋","相撲観戦と組み合わせ可能","江戸東京博物館も近い","回向院で歴史を学ぶ"],
+    recommendedTimes: ["昼","夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "両国駅から徒歩3分",
   },
   {
     id: 87,
@@ -1377,6 +1653,10 @@ export const courses: Course[] = [
     endPoint: "清澄白河駅",
     waypoints: ["富岡八幡宮", "深大寺通り"],
     durationNote: "グルメと参拝を楽しむ時間です",
+    highlights: ["名物・深川めし","富岡八幡宮で参拝","清澄庭園も近い","下町グルメを堪能"],
+    recommendedTimes: ["昼","夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "門前仲町駅から徒歩3分",
   },
   {
     id: 88,
@@ -1391,6 +1671,10 @@ export const courses: Course[] = [
     endPoint: "水天宮前駅",
     waypoints: ["甘酒横丁"],
     durationNote: "和菓子を食べながら散策する時間です",
+    highlights: ["老舗の和菓子店が並ぶ","人形焼きやせんべいが名物","水天宮で安産祈願","情緒ある通り"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "人形町駅から徒歩2分",
   },
   {
     id: 89,
@@ -1405,6 +1689,10 @@ export const courses: Course[] = [
     endPoint: "新高円寺駅",
     waypoints: ["高円寺純情商店街"],
     durationNote: "グルメと古着屋巡りを楽しむ時間です",
+    highlights: ["個性的な飲食店が多数","古着屋巡りも楽しい","阿波おどりの街","サブカルチャーの発信地"],
+    recommendedTimes: ["昼","夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "高円寺駅から徒歩1分",
   },
   {
     id: 90,
@@ -1419,6 +1707,10 @@ export const courses: Course[] = [
     endPoint: "新中野駅",
     waypoints: ["中野ブロードウェイ"],
     durationNote: "サブカル探検とグルメを楽しむ時間です",
+    highlights: ["サブカルチャーの聖地","まんだらけなど有名店多数","雨でも楽しめる","中野サンプラザも近い"],
+    recommendedTimes: ["昼","夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "中野駅から徒歩5分、屋内施設",
   },
 
   // 歴史・文化コース（6個）
@@ -1435,6 +1727,10 @@ export const courses: Course[] = [
     endPoint: "京成金町駅",
     waypoints: ["柴又帝釈天", "寅さん記念館"],
     durationNote: "参拝と観光を楽しむ時間です",
+    highlights: ["寅さんの舞台","江戸情緒あふれる参道","草だんごが名物","矢切の渡しも近い"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "柴又駅から徒歩3分",
   },
   {
     id: 92,
@@ -1449,6 +1745,10 @@ export const courses: Course[] = [
     endPoint: "千駄木駅",
     waypoints: ["根津神社"],
     durationNote: "つつじを鑑賞しながら参拝する時間です",
+    highlights: ["約3,000株のつつじ","国の重要文化財の社殿","乙女稲荷神社も見どころ","谷根千散策と組み合わせ"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "根津駅から徒歩5分",
   },
   {
     id: 93,
@@ -1463,6 +1763,10 @@ export const courses: Course[] = [
     endPoint: "大門駅",
     waypoints: ["増上寺", "東京タワー"],
     durationNote: "参拝と観光を楽しむ時間です",
+    highlights: ["徳川家の菩提寺","東京タワーとの共演","大門の赤い門が印象的","歴史と現代の融合"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "芝公園駅から徒歩3分",
   },
   {
     id: 94,
@@ -1477,6 +1781,10 @@ export const courses: Course[] = [
     endPoint: "江戸川橋駅",
     waypoints: ["護国寺"],
     durationNote: "境内をゆっくり参拝する時間です",
+    highlights: ["徳川綱吉ゆかりの寺院","静かな境内で心が落ち着く","本堂は国の重要文化財","講談社野間記念館も近い"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "護国寺駅から徒歩1分",
   },
   {
     id: 95,
@@ -1491,6 +1799,10 @@ export const courses: Course[] = [
     endPoint: "日暮里駅",
     waypoints: ["寛永寺", "上野東照宮", "清水観音堂"],
     durationNote: "寺社を巡り、歴史を学ぶ時間です",
+    highlights: ["徳川家ゆかりの寺院群","上野の杜の歴史を巡る","上野東照宮の金色の社殿","博物館・美術館も近い"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "上野駅から徒歩5分",
   },
   {
     id: 96,
@@ -1505,6 +1817,10 @@ export const courses: Course[] = [
     endPoint: "錦糸町駅",
     waypoints: ["亀戸天神社"],
     durationNote: "藤の花を鑑賞しながら参拝する時間です",
+    highlights: ["学問の神様を祀る","藤の花は都内屈指","スカイツリーを背景に写真","亀戸餃子も名物"],
+    recommendedTimes: ["朝","昼"],
+    difficulty: "初心者向け",
+    accessInfo: "亀戸駅から徒歩15分",
   },
 
   // 雨天対応コース（4個）
@@ -1521,6 +1837,10 @@ export const courses: Course[] = [
     endPoint: "東池袋駅",
     waypoints: ["サンシャインシティ", "サンシャイン水族館"],
     durationNote: "施設内を見て回り、ショッピングを楽しむ時間です",
+    highlights: ["水族館で癒される","展望台から360度の眺望","プラネタリウムも","ナンジャタウンも楽しめる"],
+    recommendedTimes: ["昼","夕方","夜"],
+    difficulty: "初心者向け",
+    accessInfo: "池袋駅から徒歩8分、屋内施設",
   },
   {
     id: 98,
@@ -1535,6 +1855,10 @@ export const courses: Course[] = [
     endPoint: "お台場海浜公園駅",
     waypoints: ["パレットタウン", "チームラボボーダレス"],
     durationNote: "屋内施設をゆっくり見て回る時間です",
+    highlights: ["中世ヨーロッパの街並み","チームラボの体験型アート","車の展示も楽しい","お台場観光の中心"],
+    recommendedTimes: ["昼","夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "青海駅から徒歩3分、屋内施設",
   },
   {
     id: 99,
@@ -1549,6 +1873,10 @@ export const courses: Course[] = [
     endPoint: "二子新地駅",
     waypoints: ["二子玉川ライズ"],
     durationNote: "ショッピングとグルメを楽しむ時間です",
+    highlights: ["おしゃれなショッピングモール","蔦屋家電も入居","多摩川を眺めながら休憩","雨でも快適に過ごせる"],
+    recommendedTimes: ["昼","夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "二子玉川駅直結、屋内施設",
   },
   {
     id: 100,
@@ -1563,5 +1891,9 @@ export const courses: Course[] = [
     endPoint: "立川北駅",
     waypoints: ["立川ルミネ"],
     durationNote: "駅直結でショッピングを楽しむ時間です",
+    highlights: ["駅直結で雨でも安心","百貨店とファッションビル","昭和記念公園へのアクセス良好","映画館も併設"],
+    recommendedTimes: ["昼","夕方"],
+    difficulty: "初心者向け",
+    accessInfo: "立川駅直結、屋内施設",
   },
 ];
