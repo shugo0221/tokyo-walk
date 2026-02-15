@@ -15,6 +15,9 @@ export default function Home() {
   const [favorites, setFavorites] = useState<number[]>([]); // お気に入りコースのIDリスト
   const [isLoadingWeather, setIsLoadingWeather] = useState<boolean>(false);
   const [weatherError, setWeatherError] = useState<string | null>(null);
+  const [isGachaAnimating, setIsGachaAnimating] = useState<boolean>(false);
+  const [showConfetti, setShowConfetti] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<"overview" | "highlights" | "access">("overview");
 
   // 季節ごとの平均気温
   const seasonTemperatures: Record<Season, number> = {
@@ -157,7 +160,7 @@ export default function Home() {
     localStorage.setItem('tokyoWalk_favorites', JSON.stringify(newFavorites));
   };
 
-  // ランダム選択
+  // ランダム選択（アニメーション付き）
   const randomizeCourse = () => {
     const filtered = filterCourses();
     setFilteredCount(filtered.length);
@@ -167,14 +170,32 @@ export default function Home() {
       return;
     }
 
-    const randomIndex = Math.floor(Math.random() * filtered.length);
-    const selected = filtered[randomIndex];
-    setSelectedCourse(selected);
+    // アニメーション開始
+    setIsGachaAnimating(true);
+    setSelectedCourse(null);
+    setActiveTab("overview");
 
-    // 履歴に追加（最新10件まで保持）
-    const newHistory = [selected, ...history.filter(c => c.id !== selected.id)].slice(0, 10);
-    setHistory(newHistory);
-    localStorage.setItem('tokyoWalk_history', JSON.stringify(newHistory));
+    // 1.5秒後に結果を表示
+    setTimeout(() => {
+      const randomIndex = Math.floor(Math.random() * filtered.length);
+      const selected = filtered[randomIndex];
+      setSelectedCourse(selected);
+      setIsGachaAnimating(false);
+
+      // 紙吹雪を表示
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 3500);
+
+      // 履歴に追加（最新10件まで保持）
+      const newHistory = [selected, ...history.filter(c => c.id !== selected.id)].slice(0, 10);
+      setHistory(newHistory);
+      localStorage.setItem('tokyoWalk_history', JSON.stringify(newHistory));
+
+      // 結果カードまでスクロール
+      setTimeout(() => {
+        document.getElementById('result-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+    }, 1500);
   };
 
   useEffect(() => {
@@ -365,131 +386,208 @@ export default function Home() {
           {/* ランダム選択ボタン */}
           <button
             onClick={randomizeCourse}
-            disabled={filteredCount === 0}
+            disabled={filteredCount === 0 || isGachaAnimating}
             className={`relative w-full py-7 rounded-3xl font-extrabold text-2xl transition-all duration-300 transform overflow-hidden ${
               filteredCount === 0
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : isGachaAnimating
+                ? "bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white shadow-2xl animate-shake"
                 : "bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white shadow-2xl hover:shadow-pink-500/50 hover:scale-105 active:scale-95 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700"
             }`}
           >
-            <span className={filteredCount === 0 ? "" : "relative z-10"}>
-              {filteredCount === 0 ? "❌ 条件に合うコースがありません" : "🎲 散歩コースをガチャる！"}
+            <span className={filteredCount === 0 ? "" : "relative z-10 flex items-center justify-center gap-3"}>
+              {filteredCount === 0 ? (
+                "❌ 条件に合うコースがありません"
+              ) : isGachaAnimating ? (
+                <>
+                  <span className="text-4xl animate-spin-slow">🎰</span>
+                  <span>ガチャ中...</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-3xl">🎲</span>
+                  <span>散歩コースをガチャる！</span>
+                </>
+              )}
             </span>
-            {filteredCount > 0 && (
+            {filteredCount > 0 && !isGachaAnimating && (
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
             )}
           </button>
         </div>
 
+        {/* ガチャアニメーション */}
+        {isGachaAnimating && (
+          <div className="flex justify-center items-center py-20">
+            <div className="text-center animate-bounce-custom">
+              <div className="text-8xl mb-4 animate-spin-slow">🎰</div>
+              <p className="text-2xl font-bold text-white drop-shadow-lg">コースを選定中...</p>
+              <div className="flex justify-center gap-2 mt-4">
+                <span className="w-3 h-3 bg-white rounded-full animate-bounce" style={{ animationDelay: '0s' }}></span>
+                <span className="w-3 h-3 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></span>
+                <span className="w-3 h-3 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 紙吹雪 */}
+        {showConfetti && (
+          <>
+            {[...Array(18)].map((_, i) => (
+              <div key={i} className={`confetti confetti-${i + 1}`} style={{ borderRadius: i % 2 === 0 ? '50%' : '0' }}></div>
+            ))}
+          </>
+        )}
+
         {/* 結果表示カード */}
         {selectedCourse && (
-          <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-10 border-2 border-white/30 animate-fadeIn overflow-hidden relative hover:shadow-pink-500/20 transition-shadow duration-500">
+          <div id="result-card" className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border-2 border-white/30 animate-scaleUp overflow-hidden relative animate-glow">
             {/* 背景装飾 */}
             <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-indigo-300/40 to-purple-300/40 rounded-full blur-3xl animate-pulse-slow"></div>
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-pink-300/40 to-yellow-300/40 rounded-full blur-3xl animate-pulse-slow" style={{animationDelay: '2s'}}></div>
 
-            <div className="relative z-10">
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="text-3xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent flex items-center gap-3">
-                  <span className="text-4xl animate-float">✨</span> おすすめコース
-                </h2>
-                <div className="flex gap-3">
-                  <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white text-lg font-bold px-6 py-3 rounded-full shadow-xl">
-                    📏 {formatDistance(selectedCourse.distance)}
-                  </span>
-                  <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white text-lg font-bold px-6 py-3 rounded-full shadow-xl">
-                    ⏱️ {selectedCourse.duration}分
-                  </span>
-                </div>
-              </div>
-
-              {/* コース画像 */}
+            {/* 大きな画像ヘッダー */}
+            <div className="relative h-80 overflow-hidden">
               <CourseImage courseName={selectedCourse.name} areaName={selectedCourse.area} />
-
-              <div className="mb-8 p-8 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-3xl shadow-inner border-2 border-white/50">
-                <h3 className="text-5xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4 leading-tight">
+              {/* オーバーレイ情報 */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-8">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-4xl animate-float">✨</span>
+                  <span className="text-white/80 text-lg font-medium">おすすめコース</span>
+                </div>
+                <h3 className="text-4xl md:text-5xl font-extrabold text-white mb-3 drop-shadow-2xl leading-tight">
                   {selectedCourse.name}
                 </h3>
-                <p className="text-gray-800 text-2xl font-bold flex items-center gap-3">
-                  <span className="text-3xl">📍</span> {selectedCourse.area}
+                <p className="text-white/90 text-xl font-bold flex items-center gap-2">
+                  <span className="text-2xl">📍</span> {selectedCourse.area}
                 </p>
               </div>
-
-              <div className="mb-8 p-6 bg-white/70 backdrop-blur-sm rounded-2xl shadow-md border border-gray-100">
-                <p className="text-gray-800 leading-relaxed text-lg font-medium">
-                  {selectedCourse.description}
-                </p>
-                {(selectedCourse.durationNote || selectedCourse.startPoint) && (
-                  <div className="mt-4 pt-4 border-t border-gray-200">
-                    <p className="text-sm text-gray-600 flex items-start gap-2">
-                      <span className="text-base">ℹ️</span>
-                      <span>
-                        {selectedCourse.durationNote || "所要時間は観光・休憩・写真撮影などを含む目安時間です。Google Mapの徒歩時間とは異なる場合があります。"}
-                      </span>
-                    </p>
-                  </div>
-                )}
+              {/* バッジ */}
+              <div className="absolute top-4 right-4 flex gap-2">
+                <span className="bg-white/90 backdrop-blur-sm text-gray-800 text-sm font-bold px-4 py-2 rounded-full shadow-lg">
+                  📏 {formatDistance(selectedCourse.distance)}
+                </span>
+                <span className="bg-white/90 backdrop-blur-sm text-gray-800 text-sm font-bold px-4 py-2 rounded-full shadow-lg">
+                  ⏱️ {selectedCourse.duration}分
+                </span>
               </div>
+            </div>
 
-              {/* 詳細情報 */}
-              {(selectedCourse.highlights || selectedCourse.recommendedTimes || selectedCourse.difficulty || selectedCourse.accessInfo) && (
-                <div className="mb-8 space-y-4">
-                  {/* 見どころポイント */}
-                  {selectedCourse.highlights && selectedCourse.highlights.length > 0 && (
-                    <div className="p-6 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 rounded-2xl shadow-md border border-amber-200">
-                      <h4 className="text-lg font-bold text-amber-900 mb-3 flex items-center gap-2">
-                        <span className="text-xl">📍</span> 見どころポイント
-                      </h4>
-                      <ul className="space-y-2">
-                        {selectedCourse.highlights.map((highlight, idx) => (
-                          <li key={idx} className="text-gray-700 flex items-start gap-2">
-                            <span className="text-amber-600 mt-1">✓</span>
-                            <span>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* おすすめの時間帯・難易度・アクセス情報 */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {selectedCourse.recommendedTimes && selectedCourse.recommendedTimes.length > 0 && (
-                      <div className="p-4 bg-gradient-to-br from-sky-50 to-blue-50 rounded-xl shadow-md border border-sky-200">
-                        <h4 className="text-base font-bold text-sky-900 mb-2 flex items-center gap-2">
-                          <span className="text-lg">🕐</span> おすすめ時間帯
-                        </h4>
-                        <p className="text-gray-700 text-sm">{selectedCourse.recommendedTimes.join(" ・ ")}</p>
-                      </div>
-                    )}
-
-                    {selectedCourse.difficulty && (
-                      <div className="p-4 bg-gradient-to-br from-emerald-50 to-green-50 rounded-xl shadow-md border border-emerald-200">
-                        <h4 className="text-base font-bold text-emerald-900 mb-2 flex items-center gap-2">
-                          <span className="text-lg">💪</span> 難易度
-                        </h4>
-                        <p className="text-gray-700 text-sm">{selectedCourse.difficulty}</p>
-                      </div>
-                    )}
-
-                    {selectedCourse.accessInfo && (
-                      <div className="p-4 bg-gradient-to-br from-violet-50 to-purple-50 rounded-xl shadow-md border border-violet-200">
-                        <h4 className="text-base font-bold text-violet-900 mb-2 flex items-center gap-2">
-                          <span className="text-lg">🚇</span> アクセス
-                        </h4>
-                        <p className="text-gray-700 text-sm">{selectedCourse.accessInfo}</p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              <div className="flex flex-wrap gap-4 mb-8">
-                <span className="text-base font-bold bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white px-6 py-3 rounded-full shadow-lg transform hover:scale-105 transition-transform">
+            <div className="relative z-10 p-8">
+              {/* タグ */}
+              <div className="flex flex-wrap gap-3 mb-6">
+                <span className="text-sm font-bold bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white px-4 py-2 rounded-full shadow-lg">
                   {selectedCourse.seasons.join(" ・ ")}
                 </span>
-                <span className="text-base font-bold bg-gradient-to-r from-green-500 via-emerald-500 to-lime-500 text-white px-6 py-3 rounded-full shadow-lg transform hover:scale-105 transition-transform">
+                <span className="text-sm font-bold bg-gradient-to-r from-green-500 via-emerald-500 to-lime-500 text-white px-4 py-2 rounded-full shadow-lg">
                   {selectedCourse.weatherStyles.join(" ・ ")}
                 </span>
+              </div>
+
+              {/* タブナビゲーション */}
+              <div className="flex gap-2 mb-6 p-1 bg-gray-100 rounded-2xl">
+                <button
+                  onClick={() => setActiveTab("overview")}
+                  className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-300 ${
+                    activeTab === "overview" ? "tab-active shadow-lg" : "tab-inactive"
+                  }`}
+                >
+                  📋 概要
+                </button>
+                <button
+                  onClick={() => setActiveTab("highlights")}
+                  className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-300 ${
+                    activeTab === "highlights" ? "tab-active shadow-lg" : "tab-inactive"
+                  }`}
+                >
+                  ✨ 見どころ
+                </button>
+                <button
+                  onClick={() => setActiveTab("access")}
+                  className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-300 ${
+                    activeTab === "access" ? "tab-active shadow-lg" : "tab-inactive"
+                  }`}
+                >
+                  🚇 アクセス
+                </button>
+              </div>
+
+              {/* タブコンテンツ */}
+              <div className="mb-8 animate-slideUp" key={activeTab}>
+                {activeTab === "overview" && (
+                  <div className="space-y-4">
+                    <div className="p-6 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-2xl shadow-inner border border-white/50">
+                      <p className="text-gray-800 leading-relaxed text-lg">
+                        {selectedCourse.description}
+                      </p>
+                    </div>
+                    {(selectedCourse.durationNote || selectedCourse.startPoint) && (
+                      <div className="p-4 bg-blue-50 rounded-xl border border-blue-200">
+                        <p className="text-sm text-blue-800 flex items-start gap-2">
+                          <span className="text-base">ℹ️</span>
+                          <span>
+                            {selectedCourse.durationNote || "所要時間は観光・休憩・写真撮影などを含む目安時間です。"}
+                          </span>
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {activeTab === "highlights" && (
+                  <div className="space-y-4">
+                    {selectedCourse.highlights && selectedCourse.highlights.length > 0 ? (
+                      <div className="p-6 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 rounded-2xl shadow-md border border-amber-200">
+                        <ul className="space-y-3">
+                          {selectedCourse.highlights.map((highlight, idx) => (
+                            <li key={idx} className="text-gray-700 flex items-start gap-3 text-lg">
+                              <span className="text-amber-500 text-xl">★</span>
+                              <span>{highlight}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : (
+                      <div className="p-6 bg-gray-50 rounded-2xl text-center text-gray-500">
+                        見どころ情報は準備中です
+                      </div>
+                    )}
+                    {selectedCourse.recommendedTimes && selectedCourse.recommendedTimes.length > 0 && (
+                      <div className="p-4 bg-sky-50 rounded-xl border border-sky-200">
+                        <p className="text-sky-800 flex items-center gap-2">
+                          <span className="text-lg">🕐</span>
+                          <span className="font-bold">おすすめ時間帯:</span>
+                          <span>{selectedCourse.recommendedTimes.join(" ・ ")}</span>
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {activeTab === "access" && (
+                  <div className="space-y-4">
+                    {selectedCourse.accessInfo ? (
+                      <div className="p-6 bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl shadow-md border border-violet-200">
+                        <p className="text-gray-700 text-lg leading-relaxed">{selectedCourse.accessInfo}</p>
+                      </div>
+                    ) : (
+                      <div className="p-6 bg-gray-50 rounded-2xl text-center text-gray-500">
+                        アクセス情報は準備中です
+                      </div>
+                    )}
+                    {selectedCourse.difficulty && (
+                      <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-200">
+                        <p className="text-emerald-800 flex items-center gap-2">
+                          <span className="text-lg">💪</span>
+                          <span className="font-bold">難易度:</span>
+                          <span>{selectedCourse.difficulty}</span>
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* ボタンエリア */}
@@ -520,7 +618,8 @@ export default function Home() {
                   </a>
                   <button
                     onClick={randomizeCourse}
-                    className="py-5 px-8 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-bold text-lg hover:from-indigo-700 hover:to-purple-700 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                    disabled={isGachaAnimating}
+                    className="py-5 px-8 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-bold text-lg hover:from-indigo-700 hover:to-purple-700 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50"
                   >
                     🔄 再抽選
                   </button>

@@ -12,10 +12,10 @@ export function CourseImage({ courseName, areaName }: CourseImageProps) {
 
   if (isLoading) {
     return (
-      <div className="w-full h-64 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 rounded-2xl flex items-center justify-center animate-pulse">
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-400 via-purple-500 to-pink-500 flex items-center justify-center">
         <div className="text-center">
-          <span className="text-4xl animate-spin inline-block">🌀</span>
-          <p className="mt-2 text-gray-500 font-medium">画像を読み込み中...</p>
+          <span className="text-6xl animate-spin inline-block">🌀</span>
+          <p className="mt-4 text-white font-bold text-lg">画像を読み込み中...</p>
         </div>
       </div>
     );
@@ -23,26 +23,24 @@ export function CourseImage({ courseName, areaName }: CourseImageProps) {
 
   if (error || !imageData) {
     return (
-      <div className="w-full h-48 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 rounded-2xl flex items-center justify-center">
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-400 via-purple-500 to-pink-500 flex items-center justify-center">
         <div className="text-center">
-          <span className="text-4xl">🖼️</span>
-          <p className="mt-2 text-gray-400 text-sm">画像を取得できませんでした</p>
+          <span className="text-6xl">🏙️</span>
+          <p className="mt-4 text-white/80 font-medium">Tokyo Walk</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="relative w-full h-64 rounded-2xl overflow-hidden shadow-lg mb-6">
+    <>
       <img
         src={imageData.url}
         alt={`${areaName} ${courseName}`}
-        className="w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover"
       />
-      {/* グラデーションオーバーレイ */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
       {/* 撮影者クレジット（Unsplash利用規約） */}
-      <div className="absolute bottom-2 right-2 text-xs text-white/80 bg-black/30 backdrop-blur-sm px-2 py-1 rounded-lg">
+      <div className="absolute top-4 left-4 text-xs text-white/70 bg-black/30 backdrop-blur-sm px-2 py-1 rounded-lg z-10">
         Photo by{" "}
         <a
           href={`${imageData.photographerUrl}?utm_source=tokyo_walk_randomizer&utm_medium=referral`}
@@ -62,6 +60,6 @@ export function CourseImage({ courseName, areaName }: CourseImageProps) {
           Unsplash
         </a>
       </div>
-    </div>
+    </>
   );
 }
