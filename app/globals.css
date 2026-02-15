@@ -157,7 +157,7 @@ input[type="range"]::-moz-range-thumb:hover {
 }
 
 .animate-bounce-custom {
-  animation: bounce 0.6s ease-in-out;
+  animation: bounce 0.6s ease-in-out infinite;
 }
 
 .animate-shake {

@@ -203,29 +203,44 @@ export default function Home() {
   }, [currentSeason, weather, duration]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 py-12 px-4 relative overflow-hidden">
-      {/* 背景装飾 */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-12 px-4 relative overflow-hidden">
+      {/* 背景装飾 - メッシュグラデーション風 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+        {/* グラデーションオーブ */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-pink-500/30 rounded-full blur-3xl animate-pulse-slow" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/20 rounded-full blur-3xl"></div>
+
+        {/* 浮遊する装飾要素 */}
+        <div className="absolute top-20 left-10 text-4xl opacity-20 animate-float" style={{animationDelay: '0s'}}>🗼</div>
+        <div className="absolute top-40 right-20 text-3xl opacity-20 animate-float" style={{animationDelay: '1s'}}>🌸</div>
+        <div className="absolute bottom-40 left-20 text-3xl opacity-20 animate-float" style={{animationDelay: '2s'}}>⛩️</div>
+        <div className="absolute bottom-20 right-10 text-4xl opacity-20 animate-float" style={{animationDelay: '0.5s'}}>🏙️</div>
+        <div className="absolute top-1/3 left-5 text-2xl opacity-15 animate-float" style={{animationDelay: '1.5s'}}>🚃</div>
+        <div className="absolute top-1/4 right-10 text-2xl opacity-15 animate-float" style={{animationDelay: '2.5s'}}>🌳</div>
+
+        {/* グリッドパターン */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
         {/* ヘッダー */}
         <header className="text-center mb-16 animate-fadeIn">
-          <div className="inline-block p-4 bg-white/20 backdrop-blur-md rounded-3xl mb-6 animate-float shadow-2xl">
-            <span className="text-7xl">🚶‍♂️</span>
+          {/* ロゴアイコン */}
+          <div className="relative inline-block mb-6">
+            <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-full blur-2xl opacity-40 animate-pulse-slow scale-110"></div>
+            <div className="relative text-8xl md:text-9xl animate-float">
+              🚶‍♂️
+            </div>
           </div>
-          <h1 className="text-6xl md:text-7xl font-extrabold text-white mb-4 drop-shadow-2xl tracking-tight">
-            Tokyo Walk Randomizer
+
+          {/* タイトル */}
+          <h1 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-300 mb-2 tracking-tight">
+            Tokyo Walk
           </h1>
-          <div className="inline-block bg-white/20 backdrop-blur-md rounded-full px-8 py-3 mb-4">
-            <p className="text-2xl md:text-3xl text-white font-bold">✨ 東京散歩ガチャ ✨</p>
-          </div>
-          <p className="text-lg text-white/90 mt-4 max-w-2xl mx-auto leading-relaxed">
-            今の状況に合わせて、最適な散歩コースをAIが提案します
-          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-white/80 tracking-wide">
+            Randomizer
+          </h2>
         </header>
 
         {/* 条件設定カード */}
