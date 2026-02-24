@@ -10,3 +10,13 @@ export type Post = {
   content: string
   created_at: string
 }
+
+export type CourseReview = {
+  id: number
+  course_id: number
+  course_name: string
+  rating: number  // 1-5
+  content: string
+  nickname: string
+  created_at: string
+}

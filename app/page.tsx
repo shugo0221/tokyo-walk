@@ -720,13 +720,13 @@ export default function Home() {
           </div>
         )}
 
-        {/* 投稿ページへのリンク */}
+        {/* 口コミページへのリンク */}
         <div className="mt-10 text-center animate-fadeIn" style={{animationDelay: '0.3s'}}>
           <a
-            href="/posts"
+            href="/reviews"
             className="inline-block px-10 py-5 bg-white/20 backdrop-blur-md text-white rounded-3xl font-bold text-lg hover:bg-white/30 transition-all hover:scale-105 shadow-xl hover:shadow-2xl"
           >
-            💬 投稿掲示板へ
+            ⭐ 口コミを見る
           </a>
         </div>
       </div>
