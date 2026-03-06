@@ -238,61 +238,61 @@ export default function Home() {
 
       <div className="max-w-4xl mx-auto relative z-10">
         {/* ヘッダー */}
-        <header className="text-center mb-16 animate-fadeIn">
+        <header className="text-center mb-8 md:mb-16 animate-fadeIn">
           {/* ロゴアイコン */}
-          <div className="relative inline-block mb-6">
+          <div className="relative inline-block mb-4 md:mb-6">
             <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-full blur-2xl opacity-40 animate-pulse-slow scale-110"></div>
-            <div className="relative text-8xl md:text-9xl animate-float">
+            <div className="relative text-6xl md:text-9xl animate-float">
               🚶‍♂️
             </div>
           </div>
 
           {/* タイトル */}
-          <h1 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-300 mb-2 tracking-tight">
+          <h1 className="text-3xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-300 mb-1 md:mb-2 tracking-tight">
             Tokyo Walk
           </h1>
-          <h2 className="text-3xl md:text-4xl font-bold text-white/80 tracking-wide">
+          <h2 className="text-xl md:text-4xl font-bold text-white/80 tracking-wide">
             Randomizer
           </h2>
         </header>
 
         {/* 条件設定カード */}
-        <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-10 mb-10 border border-white/30 animate-fadeIn hover:shadow-3xl transition-shadow duration-500" style={{animationDelay: '0.1s'}}>
-          <div className="text-center mb-10">
-            <div className="flex items-center justify-center gap-4 mb-2">
-              <h2 className="text-4xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">現在の状況</h2>
+        <div className="bg-white/95 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-2xl p-5 md:p-10 mb-6 md:mb-10 border border-white/30 animate-fadeIn hover:shadow-3xl transition-shadow duration-500" style={{animationDelay: '0.1s'}}>
+          <div className="text-center mb-6 md:mb-10">
+            <div className="flex items-center justify-center gap-2 md:gap-4 mb-2">
+              <h2 className="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">現在の状況</h2>
               <button
                 onClick={resetConditions}
-                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-xl font-medium text-sm transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-md"
+                className="px-3 py-1.5 md:px-4 md:py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg md:rounded-xl font-medium text-xs md:text-sm transition-all duration-300 hover:scale-105 flex items-center gap-1 md:gap-2 shadow-md"
               >
                 <span>🔄</span>
                 <span>リセット</span>
               </button>
             </div>
-            <div className="w-24 h-1 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 mx-auto rounded-full"></div>
+            <div className="w-16 md:w-24 h-1 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 mx-auto rounded-full"></div>
           </div>
 
           {/* 季節選択 */}
-          <div className="mb-10">
-            <label className="block text-base font-bold text-gray-800 mb-5 flex items-center gap-3">
-              <span className="text-2xl">🌸</span>
+          <div className="mb-6 md:mb-10">
+            <label className="block text-sm md:text-base font-bold text-gray-800 mb-3 md:mb-5 flex items-center gap-2 md:gap-3">
+              <span className="text-xl md:text-2xl">🌸</span>
               <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">季節</span>
             </label>
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-2 md:gap-4">
               {(["春", "夏", "秋", "冬"] as Season[]).map((season) => {
                 const seasonEmojis = { "春": "🌸", "夏": "☀️", "秋": "🍂", "冬": "❄️" };
                 return (
                   <button
                     key={season}
                     onClick={() => handleSeasonChange(season)}
-                    className={`py-5 px-4 rounded-2xl font-bold transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 ${
+                    className={`py-3 md:py-5 px-2 md:px-4 rounded-xl md:rounded-2xl font-bold transition-all duration-300 transform hover:scale-105 md:hover:scale-110 hover:-translate-y-1 ${
                       currentSeason === season
                         ? "bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 text-white shadow-2xl scale-105"
                         : "bg-gradient-to-br from-gray-50 to-gray-100 text-gray-700 hover:from-indigo-50 hover:to-purple-50 shadow-md hover:shadow-xl"
                     }`}
                   >
-                    <div className="text-3xl mb-1">{seasonEmojis[season]}</div>
-                    <div>{season}</div>
+                    <div className="text-2xl md:text-3xl mb-1">{seasonEmojis[season]}</div>
+                    <div className="text-sm md:text-base">{season}</div>
                   </button>
                 );
               })}
@@ -300,9 +300,9 @@ export default function Home() {
           </div>
 
           {/* 気温入力 */}
-          <div className="mb-8">
-            <label className="block text-sm font-semibold text-gray-700 mb-4 flex items-center gap-2">
-              <span className="text-xl">🌡️</span> 気温: <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{temperature}°C</span>
+          <div className="mb-6 md:mb-8">
+            <label className="block text-sm font-semibold text-gray-700 mb-3 md:mb-4 flex items-center gap-2">
+              <span className="text-lg md:text-xl">🌡️</span> 気温: <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{temperature}°C</span>
             </label>
             <div className="relative">
               <input
@@ -324,11 +324,11 @@ export default function Home() {
           </div>
 
           {/* 天気取得ボタン */}
-          <div className="mb-8">
+          <div className="mb-6 md:mb-8">
             <button
               onClick={fetchWeather}
               disabled={isLoadingWeather}
-              className={`w-full py-4 px-6 rounded-2xl font-bold text-base transition-all duration-300 flex items-center justify-center gap-3 ${
+              className={`w-full py-3 md:py-4 px-4 md:px-6 rounded-xl md:rounded-2xl font-bold text-sm md:text-base transition-all duration-300 flex items-center justify-center gap-2 md:gap-3 ${
                 isLoadingWeather
                   ? "bg-gray-200 text-gray-500 cursor-not-allowed"
                   : "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg hover:shadow-xl hover:scale-105"
@@ -341,37 +341,37 @@ export default function Home() {
                 </>
               ) : (
                 <>
-                  <span className="text-xl">🌤️</span>
+                  <span className="text-lg md:text-xl">🌤️</span>
                   <span>東京の現在の天気を取得</span>
                 </>
               )}
             </button>
             {weatherError && (
-              <p className="mt-2 text-sm text-red-500 text-center">{weatherError}</p>
+              <p className="mt-2 text-xs md:text-sm text-red-500 text-center">{weatherError}</p>
             )}
           </div>
 
           {/* 天候選択 */}
-          <div className="mb-10">
-            <label className="block text-base font-bold text-gray-800 mb-5 flex items-center gap-3">
-              <span className="text-2xl">🌤️</span>
+          <div className="mb-6 md:mb-10">
+            <label className="block text-sm md:text-base font-bold text-gray-800 mb-3 md:mb-5 flex items-center gap-2 md:gap-3">
+              <span className="text-xl md:text-2xl">🌤️</span>
               <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">天候</span>
             </label>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-2 md:gap-4">
               {(["晴天", "曇天", "雨天"] as WeatherStyle[]).map((w) => {
                 const icons = { "晴天": "☀️", "曇天": "☁️", "雨天": "🌧️" };
                 return (
                   <button
                     key={w}
                     onClick={() => setWeather(w)}
-                    className={`py-6 px-4 rounded-2xl font-bold transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 flex flex-col items-center gap-3 ${
+                    className={`py-4 md:py-6 px-2 md:px-4 rounded-xl md:rounded-2xl font-bold transition-all duration-300 transform hover:scale-105 md:hover:scale-110 hover:-translate-y-1 flex flex-col items-center gap-2 md:gap-3 ${
                       weather === w
                         ? "bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 text-white shadow-2xl scale-105"
                         : "bg-gradient-to-br from-gray-50 to-gray-100 text-gray-700 hover:from-indigo-50 hover:to-purple-50 shadow-md hover:shadow-xl"
                     }`}
                   >
-                    <span className="text-4xl">{icons[w]}</span>
-                    <span className="text-base">{w}</span>
+                    <span className="text-3xl md:text-4xl">{icons[w]}</span>
+                    <span className="text-sm md:text-base">{w}</span>
                   </button>
                 );
               })}
@@ -379,56 +379,56 @@ export default function Home() {
           </div>
 
           {/* 時間選択 */}
-          <div className="mb-10">
-            <label className="block text-base font-bold text-gray-800 mb-5 flex items-center gap-3">
-              <span className="text-2xl">⏱️</span>
+          <div className="mb-6 md:mb-10">
+            <label className="block text-sm md:text-base font-bold text-gray-800 mb-3 md:mb-5 flex items-center gap-2 md:gap-3">
+              <span className="text-xl md:text-2xl">⏱️</span>
               <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">散歩時間</span>
             </label>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-2 md:gap-4">
               {([30, 60, 90] as Duration[]).map((d) => (
                 <button
                   key={d}
                   onClick={() => setDuration(d)}
-                  className={`py-6 px-4 rounded-2xl font-bold transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 ${
+                  className={`py-4 md:py-6 px-2 md:px-4 rounded-xl md:rounded-2xl font-bold transition-all duration-300 transform hover:scale-105 md:hover:scale-110 hover:-translate-y-1 ${
                     duration === d
                       ? "bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 text-white shadow-2xl scale-105"
                       : "bg-gradient-to-br from-gray-50 to-gray-100 text-gray-700 hover:from-indigo-50 hover:to-purple-50 shadow-md hover:shadow-xl"
                   }`}
                 >
-                  <div className="text-3xl font-extrabold">{d}</div>
-                  <div className="text-sm mt-1">分</div>
+                  <div className="text-2xl md:text-3xl font-extrabold">{d}</div>
+                  <div className="text-xs md:text-sm mt-1">分</div>
                 </button>
               ))}
             </div>
           </div>
 
           {/* 公園メインフィルター */}
-          <div className="mb-10">
-            <label className="block text-base font-bold text-gray-800 mb-5 flex items-center gap-3">
-              <span className="text-2xl">🌳</span>
+          <div className="mb-6 md:mb-10">
+            <label className="block text-sm md:text-base font-bold text-gray-800 mb-3 md:mb-5 flex items-center gap-2 md:gap-3">
+              <span className="text-xl md:text-2xl">🌳</span>
               <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">コースタイプ</span>
             </label>
             <div className="relative">
               <button
                 type="button"
                 onClick={() => setIsCourseTypeOpen(!isCourseTypeOpen)}
-                className={`w-full h-14 px-5 pr-12 text-left font-bold text-base bg-white text-gray-700 border-2 shadow-sm cursor-pointer transition-all duration-300 hover:border-purple-300 hover:shadow-md focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-100 ${
-                  isCourseTypeOpen ? "rounded-t-2xl border-purple-500 border-b-0" : "rounded-2xl border-gray-200"
+                className={`w-full h-12 md:h-14 px-4 md:px-5 pr-10 md:pr-12 text-left font-bold text-sm md:text-base bg-white text-gray-700 border-2 shadow-sm cursor-pointer transition-all duration-300 hover:border-purple-300 hover:shadow-md focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-100 ${
+                  isCourseTypeOpen ? "rounded-t-xl md:rounded-t-2xl border-purple-500 border-b-0" : "rounded-xl md:rounded-2xl border-gray-200"
                 }`}
               >
                 {parkOnly ? "🏞️ 公園メインのコース" : "🗺️ 全てのコース"}
-                <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                  <svg className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${isCourseTypeOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2">
+                  <svg className={`w-4 h-4 md:w-5 md:h-5 text-gray-400 transition-transform duration-200 ${isCourseTypeOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </div>
               </button>
               {isCourseTypeOpen && (
-                <div className="absolute z-20 w-full bg-white border-2 border-t-0 border-purple-500 rounded-b-2xl shadow-lg overflow-hidden">
+                <div className="absolute z-20 w-full bg-white border-2 border-t-0 border-purple-500 rounded-b-xl md:rounded-b-2xl shadow-lg overflow-hidden">
                   <button
                     type="button"
                     onClick={() => { setParkOnly(false); setIsCourseTypeOpen(false); }}
-                    className={`w-full h-12 px-5 text-left font-medium text-base transition-colors duration-150 hover:bg-purple-50 ${
+                    className={`w-full h-11 md:h-12 px-4 md:px-5 text-left font-medium text-sm md:text-base transition-colors duration-150 hover:bg-purple-50 ${
                       !parkOnly ? "bg-purple-100 text-purple-700" : "text-gray-700"
                     }`}
                   >
@@ -437,7 +437,7 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => { setParkOnly(true); setIsCourseTypeOpen(false); }}
-                    className={`w-full h-12 px-5 text-left font-medium text-base transition-colors duration-150 hover:bg-purple-50 ${
+                    className={`w-full h-11 md:h-12 px-4 md:px-5 text-left font-medium text-sm md:text-base transition-colors duration-150 hover:bg-purple-50 ${
                       parkOnly ? "bg-purple-100 text-purple-700" : "text-gray-700"
                     }`}
                   >
@@ -449,11 +449,11 @@ export default function Home() {
           </div>
 
           {/* 該当コース数表示 */}
-          <div className="text-center mb-8">
-            <div className="inline-block bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 px-8 py-4 rounded-full shadow-lg border-2 border-white">
-              <span className="text-base font-bold text-gray-700">該当コース: </span>
-              <span className="text-3xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mx-2">{filteredCount}</span>
-              <span className="text-base font-bold text-gray-700">件</span>
+          <div className="text-center mb-6 md:mb-8">
+            <div className="inline-block bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 px-5 md:px-8 py-3 md:py-4 rounded-full shadow-lg border-2 border-white">
+              <span className="text-sm md:text-base font-bold text-gray-700">該当コース: </span>
+              <span className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mx-1 md:mx-2">{filteredCount}</span>
+              <span className="text-sm md:text-base font-bold text-gray-700">件</span>
             </div>
           </div>
 
@@ -461,7 +461,7 @@ export default function Home() {
           <button
             onClick={randomizeCourse}
             disabled={filteredCount === 0 || isGachaAnimating}
-            className={`relative w-full py-7 rounded-3xl font-extrabold text-2xl transition-all duration-300 transform overflow-hidden ${
+            className={`relative w-full py-5 md:py-7 rounded-2xl md:rounded-3xl font-extrabold text-lg md:text-2xl transition-all duration-300 transform overflow-hidden ${
               filteredCount === 0
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                 : isGachaAnimating
@@ -469,17 +469,17 @@ export default function Home() {
                 : "bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white shadow-2xl hover:shadow-pink-500/50 hover:scale-105 active:scale-95 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700"
             }`}
           >
-            <span className={filteredCount === 0 ? "" : "relative z-10 flex items-center justify-center gap-3"}>
+            <span className={filteredCount === 0 ? "text-sm md:text-2xl" : "relative z-10 flex items-center justify-center gap-2 md:gap-3"}>
               {filteredCount === 0 ? (
                 "❌ 条件に合うコースがありません"
               ) : isGachaAnimating ? (
                 <>
-                  <span className="text-4xl animate-spin-slow">🎰</span>
+                  <span className="text-3xl md:text-4xl animate-spin-slow">🎰</span>
                   <span>ガチャ中...</span>
                 </>
               ) : (
                 <>
-                  <span className="text-3xl">🎲</span>
+                  <span className="text-2xl md:text-3xl">🎲</span>
                   <span>散歩コースをガチャる！</span>
                 </>
               )}
@@ -492,14 +492,14 @@ export default function Home() {
 
         {/* ガチャアニメーション */}
         {isGachaAnimating && (
-          <div className="flex justify-center items-center py-20">
+          <div className="flex justify-center items-center py-12 md:py-20">
             <div className="text-center animate-bounce-custom">
-              <div className="text-8xl mb-4 animate-spin-slow">🎰</div>
-              <p className="text-2xl font-bold text-white drop-shadow-lg">コースを選定中...</p>
+              <div className="text-6xl md:text-8xl mb-4 animate-spin-slow">🎰</div>
+              <p className="text-xl md:text-2xl font-bold text-white drop-shadow-lg">コースを選定中...</p>
               <div className="flex justify-center gap-2 mt-4">
-                <span className="w-3 h-3 bg-white rounded-full animate-bounce" style={{ animationDelay: '0s' }}></span>
-                <span className="w-3 h-3 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></span>
-                <span className="w-3 h-3 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
+                <span className="w-2 h-2 md:w-3 md:h-3 bg-white rounded-full animate-bounce" style={{ animationDelay: '0s' }}></span>
+                <span className="w-2 h-2 md:w-3 md:h-3 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></span>
+                <span className="w-2 h-2 md:w-3 md:h-3 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
               </div>
             </div>
           </div>
@@ -516,55 +516,55 @@ export default function Home() {
 
         {/* 結果表示カード */}
         {selectedCourse && (
-          <div id="result-card" className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border-2 border-white/30 animate-scaleUp overflow-hidden relative animate-glow">
+          <div id="result-card" className="bg-white/95 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-2xl border-2 border-white/30 animate-scaleUp overflow-hidden relative animate-glow">
             {/* 背景装飾 */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-indigo-300/40 to-purple-300/40 rounded-full blur-3xl animate-pulse-slow"></div>
-            <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-pink-300/40 to-yellow-300/40 rounded-full blur-3xl animate-pulse-slow" style={{animationDelay: '2s'}}></div>
+            <div className="absolute top-0 right-0 w-40 md:w-80 h-40 md:h-80 bg-gradient-to-br from-indigo-300/40 to-purple-300/40 rounded-full blur-3xl animate-pulse-slow"></div>
+            <div className="absolute bottom-0 left-0 w-40 md:w-80 h-40 md:h-80 bg-gradient-to-tr from-pink-300/40 to-yellow-300/40 rounded-full blur-3xl animate-pulse-slow" style={{animationDelay: '2s'}}></div>
 
             {/* 大きな画像ヘッダー */}
-            <div className="relative h-80 overflow-hidden">
+            <div className="relative h-56 md:h-80 overflow-hidden">
               <CourseImage courseName={selectedCourse.name} areaName={selectedCourse.area} />
               {/* オーバーレイ情報 */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-8">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-4xl animate-float">✨</span>
-                  <span className="text-white/80 text-lg font-medium">おすすめコース</span>
+              <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8">
+                <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
+                  <span className="text-2xl md:text-4xl animate-float">✨</span>
+                  <span className="text-white/80 text-sm md:text-lg font-medium">おすすめコース</span>
                 </div>
-                <h3 className="text-4xl md:text-5xl font-extrabold text-white mb-3 drop-shadow-2xl leading-tight">
+                <h3 className="text-2xl md:text-5xl font-extrabold text-white mb-2 md:mb-3 drop-shadow-2xl leading-tight">
                   {selectedCourse.name}
                 </h3>
-                <p className="text-white/90 text-xl font-bold flex items-center gap-2">
-                  <span className="text-2xl">📍</span> {selectedCourse.area}
+                <p className="text-white/90 text-base md:text-xl font-bold flex items-center gap-1 md:gap-2">
+                  <span className="text-lg md:text-2xl">📍</span> {selectedCourse.area}
                 </p>
               </div>
               {/* バッジ */}
-              <div className="absolute top-4 right-4 flex gap-2">
-                <span className="bg-white/90 backdrop-blur-sm text-gray-800 text-sm font-bold px-4 py-2 rounded-full shadow-lg">
+              <div className="absolute top-3 md:top-4 right-3 md:right-4 flex gap-1.5 md:gap-2">
+                <span className="bg-white/90 backdrop-blur-sm text-gray-800 text-xs md:text-sm font-bold px-2.5 md:px-4 py-1.5 md:py-2 rounded-full shadow-lg">
                   📏 {formatDistance(selectedCourse.distance)}
                 </span>
-                <span className="bg-white/90 backdrop-blur-sm text-gray-800 text-sm font-bold px-4 py-2 rounded-full shadow-lg">
+                <span className="bg-white/90 backdrop-blur-sm text-gray-800 text-xs md:text-sm font-bold px-2.5 md:px-4 py-1.5 md:py-2 rounded-full shadow-lg">
                   ⏱️ {selectedCourse.duration}分
                 </span>
               </div>
             </div>
 
-            <div className="relative z-10 p-8">
+            <div className="relative z-10 p-4 md:p-8">
               {/* タグ */}
-              <div className="flex flex-wrap gap-3 mb-6">
-                <span className="text-sm font-bold bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white px-4 py-2 rounded-full shadow-lg">
+              <div className="flex flex-wrap gap-2 md:gap-3 mb-4 md:mb-6">
+                <span className="text-xs md:text-sm font-bold bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full shadow-lg">
                   {selectedCourse.seasons.join(" ・ ")}
                 </span>
-                <span className="text-sm font-bold bg-gradient-to-r from-green-500 via-emerald-500 to-lime-500 text-white px-4 py-2 rounded-full shadow-lg">
+                <span className="text-xs md:text-sm font-bold bg-gradient-to-r from-green-500 via-emerald-500 to-lime-500 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full shadow-lg">
                   {selectedCourse.weatherStyles.join(" ・ ")}
                 </span>
               </div>
 
               {/* タブナビゲーション */}
-              <div className="flex gap-2 mb-6 p-1 bg-gray-100 rounded-2xl">
+              <div className="flex gap-1 md:gap-2 mb-4 md:mb-6 p-1 bg-gray-100 rounded-xl md:rounded-2xl">
                 <button
                   onClick={() => setActiveTab("overview")}
-                  className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-300 ${
+                  className={`flex-1 py-2 md:py-3 px-2 md:px-4 rounded-lg md:rounded-xl font-bold text-xs md:text-sm transition-all duration-300 ${
                     activeTab === "overview" ? "tab-active shadow-lg" : "tab-inactive"
                   }`}
                 >
@@ -572,7 +572,7 @@ export default function Home() {
                 </button>
                 <button
                   onClick={() => setActiveTab("highlights")}
-                  className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-300 ${
+                  className={`flex-1 py-2 md:py-3 px-2 md:px-4 rounded-lg md:rounded-xl font-bold text-xs md:text-sm transition-all duration-300 ${
                     activeTab === "highlights" ? "tab-active shadow-lg" : "tab-inactive"
                   }`}
                 >
@@ -580,7 +580,7 @@ export default function Home() {
                 </button>
                 <button
                   onClick={() => setActiveTab("access")}
-                  className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-300 ${
+                  className={`flex-1 py-2 md:py-3 px-2 md:px-4 rounded-lg md:rounded-xl font-bold text-xs md:text-sm transition-all duration-300 ${
                     activeTab === "access" ? "tab-active shadow-lg" : "tab-inactive"
                   }`}
                 >
@@ -589,18 +589,18 @@ export default function Home() {
               </div>
 
               {/* タブコンテンツ */}
-              <div className="mb-8 animate-slideUp" key={activeTab}>
+              <div className="mb-6 md:mb-8 animate-slideUp" key={activeTab}>
                 {activeTab === "overview" && (
-                  <div className="space-y-4">
-                    <div className="p-6 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-2xl shadow-inner border border-white/50">
-                      <p className="text-gray-800 leading-relaxed text-lg">
+                  <div className="space-y-3 md:space-y-4">
+                    <div className="p-4 md:p-6 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-xl md:rounded-2xl shadow-inner border border-white/50">
+                      <p className="text-gray-800 leading-relaxed text-sm md:text-lg">
                         {selectedCourse.description}
                       </p>
                     </div>
                     {(selectedCourse.durationNote || selectedCourse.startPoint) && (
-                      <div className="p-4 bg-blue-50 rounded-xl border border-blue-200">
-                        <p className="text-sm text-blue-800 flex items-start gap-2">
-                          <span className="text-base">ℹ️</span>
+                      <div className="p-3 md:p-4 bg-blue-50 rounded-lg md:rounded-xl border border-blue-200">
+                        <p className="text-xs md:text-sm text-blue-800 flex items-start gap-2">
+                          <span className="text-sm md:text-base">ℹ️</span>
                           <span>
                             {selectedCourse.durationNote || "所要時間は観光・休憩・写真撮影などを含む目安時間です。"}
                           </span>
@@ -611,27 +611,27 @@ export default function Home() {
                 )}
 
                 {activeTab === "highlights" && (
-                  <div className="space-y-4">
+                  <div className="space-y-3 md:space-y-4">
                     {selectedCourse.highlights && selectedCourse.highlights.length > 0 ? (
-                      <div className="p-6 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 rounded-2xl shadow-md border border-amber-200">
-                        <ul className="space-y-3">
+                      <div className="p-4 md:p-6 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 rounded-xl md:rounded-2xl shadow-md border border-amber-200">
+                        <ul className="space-y-2 md:space-y-3">
                           {selectedCourse.highlights.map((highlight, idx) => (
-                            <li key={idx} className="text-gray-700 flex items-start gap-3 text-lg">
-                              <span className="text-amber-500 text-xl">★</span>
+                            <li key={idx} className="text-gray-700 flex items-start gap-2 md:gap-3 text-sm md:text-lg">
+                              <span className="text-amber-500 text-base md:text-xl">★</span>
                               <span>{highlight}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
                     ) : (
-                      <div className="p-6 bg-gray-50 rounded-2xl text-center text-gray-500">
+                      <div className="p-4 md:p-6 bg-gray-50 rounded-xl md:rounded-2xl text-center text-gray-500 text-sm md:text-base">
                         見どころ情報は準備中です
                       </div>
                     )}
                     {selectedCourse.recommendedTimes && selectedCourse.recommendedTimes.length > 0 && (
-                      <div className="p-4 bg-sky-50 rounded-xl border border-sky-200">
-                        <p className="text-sky-800 flex items-center gap-2">
-                          <span className="text-lg">🕐</span>
+                      <div className="p-3 md:p-4 bg-sky-50 rounded-lg md:rounded-xl border border-sky-200">
+                        <p className="text-sky-800 flex flex-wrap items-center gap-1 md:gap-2 text-sm md:text-base">
+                          <span className="text-base md:text-lg">🕐</span>
                           <span className="font-bold">おすすめ時間帯:</span>
                           <span>{selectedCourse.recommendedTimes.join(" ・ ")}</span>
                         </p>
@@ -641,20 +641,20 @@ export default function Home() {
                 )}
 
                 {activeTab === "access" && (
-                  <div className="space-y-4">
+                  <div className="space-y-3 md:space-y-4">
                     {selectedCourse.accessInfo ? (
-                      <div className="p-6 bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl shadow-md border border-violet-200">
-                        <p className="text-gray-700 text-lg leading-relaxed">{selectedCourse.accessInfo}</p>
+                      <div className="p-4 md:p-6 bg-gradient-to-br from-violet-50 to-purple-50 rounded-xl md:rounded-2xl shadow-md border border-violet-200">
+                        <p className="text-gray-700 text-sm md:text-lg leading-relaxed">{selectedCourse.accessInfo}</p>
                       </div>
                     ) : (
-                      <div className="p-6 bg-gray-50 rounded-2xl text-center text-gray-500">
+                      <div className="p-4 md:p-6 bg-gray-50 rounded-xl md:rounded-2xl text-center text-gray-500 text-sm md:text-base">
                         アクセス情報は準備中です
                       </div>
                     )}
                     {selectedCourse.difficulty && (
-                      <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-200">
-                        <p className="text-emerald-800 flex items-center gap-2">
-                          <span className="text-lg">💪</span>
+                      <div className="p-3 md:p-4 bg-emerald-50 rounded-lg md:rounded-xl border border-emerald-200">
+                        <p className="text-emerald-800 flex items-center gap-2 text-sm md:text-base">
+                          <span className="text-base md:text-lg">💪</span>
                           <span className="font-bold">難易度:</span>
                           <span>{selectedCourse.difficulty}</span>
                         </p>
@@ -665,35 +665,35 @@ export default function Home() {
               </div>
 
               {/* ボタンエリア */}
-              <div className="space-y-4">
+              <div className="space-y-3 md:space-y-4">
                 {/* お気に入りボタン */}
                 <button
                   onClick={() => toggleFavorite(selectedCourse.id)}
-                  className={`w-full py-4 px-6 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 ${
+                  className={`w-full py-3 md:py-4 px-4 md:px-6 rounded-xl md:rounded-2xl font-bold text-sm md:text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 md:gap-3 ${
                     favorites.includes(selectedCourse.id)
                       ? 'bg-gradient-to-r from-pink-500 via-red-500 to-rose-500 text-white'
                       : 'bg-white border-2 border-pink-500 text-pink-500 hover:bg-pink-50'
                   }`}
                 >
-                  <span className="text-2xl">{favorites.includes(selectedCourse.id) ? '❤️' : '🤍'}</span>
+                  <span className="text-xl md:text-2xl">{favorites.includes(selectedCourse.id) ? '❤️' : '🤍'}</span>
                   <span>{favorites.includes(selectedCourse.id) ? 'お気に入り登録済み' : 'お気に入りに追加'}</span>
                 </button>
 
                 {/* Google Mapと再抽選 */}
-                <div className="flex gap-4">
+                <div className="flex gap-2 md:gap-4">
                   <a
                     href={getGoogleMapsUrl(selectedCourse)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 py-5 px-6 bg-gradient-to-r from-red-500 via-pink-500 to-rose-500 text-white rounded-2xl font-bold text-lg text-center hover:from-red-600 hover:via-pink-600 hover:to-rose-600 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3"
+                    className="flex-1 py-3 md:py-5 px-3 md:px-6 bg-gradient-to-r from-red-500 via-pink-500 to-rose-500 text-white rounded-xl md:rounded-2xl font-bold text-sm md:text-lg text-center hover:from-red-600 hover:via-pink-600 hover:to-rose-600 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-1.5 md:gap-3"
                   >
-                    <span className="text-2xl">📍</span>
-                    <span>Google Mapで見る</span>
+                    <span className="text-lg md:text-2xl">📍</span>
+                    <span>Google Map</span>
                   </a>
                   <button
                     onClick={randomizeCourse}
                     disabled={isGachaAnimating}
-                    className="py-5 px-8 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-bold text-lg hover:from-indigo-700 hover:to-purple-700 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50"
+                    className="py-3 md:py-5 px-4 md:px-8 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl md:rounded-2xl font-bold text-sm md:text-lg hover:from-indigo-700 hover:to-purple-700 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50"
                   >
                     🔄 再抽選
                   </button>
@@ -705,35 +705,35 @@ export default function Home() {
 
         {/* お気に入り */}
         {favorites.length > 0 && (
-          <div className="mt-10 bg-white/90 backdrop-blur-xl rounded-3xl shadow-xl p-8 border border-white/30 animate-fadeIn">
-            <h3 className="text-2xl font-extrabold bg-gradient-to-r from-pink-600 via-red-600 to-rose-600 bg-clip-text text-transparent mb-6 flex items-center gap-2">
-              <span className="text-3xl">❤️</span> お気に入り
+          <div className="mt-6 md:mt-10 bg-white/90 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-xl p-4 md:p-8 border border-white/30 animate-fadeIn">
+            <h3 className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-pink-600 via-red-600 to-rose-600 bg-clip-text text-transparent mb-4 md:mb-6 flex items-center gap-2">
+              <span className="text-2xl md:text-3xl">❤️</span> お気に入り
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               {courses.filter(course => favorites.includes(course.id)).map((course) => (
                 <button
                   key={course.id}
                   onClick={() => setSelectedCourse(course)}
-                  className="p-4 bg-gradient-to-br from-pink-50 to-rose-50 hover:from-pink-100 hover:to-rose-100 rounded-2xl border-2 border-pink-200/50 transition-all duration-300 hover:scale-105 hover:shadow-lg text-left relative"
+                  className="p-3 md:p-4 bg-gradient-to-br from-pink-50 to-rose-50 hover:from-pink-100 hover:to-rose-100 rounded-xl md:rounded-2xl border-2 border-pink-200/50 transition-all duration-300 hover:scale-105 hover:shadow-lg text-left relative"
                 >
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       toggleFavorite(course.id);
                     }}
-                    className="absolute top-2 right-2 text-2xl hover:scale-125 transition-transform"
+                    className="absolute top-2 right-2 text-xl md:text-2xl hover:scale-125 transition-transform"
                   >
                     ❤️
                   </button>
                   <div className="flex items-start justify-between gap-2 pr-8">
                     <div className="flex-1">
-                      <h4 className="font-bold text-gray-800 mb-1 line-clamp-1">{course.name}</h4>
-                      <p className="text-sm text-gray-600 mb-2">📍 {course.area}</p>
-                      <div className="flex gap-2 flex-wrap">
-                        <span className="text-xs bg-pink-600 text-white px-2 py-1 rounded-full">
+                      <h4 className="font-bold text-gray-800 mb-1 line-clamp-1 text-sm md:text-base">{course.name}</h4>
+                      <p className="text-xs md:text-sm text-gray-600 mb-2">📍 {course.area}</p>
+                      <div className="flex gap-1.5 md:gap-2 flex-wrap">
+                        <span className="text-xs bg-pink-600 text-white px-2 py-0.5 md:py-1 rounded-full">
                           {course.duration}分
                         </span>
-                        <span className="text-xs bg-rose-600 text-white px-2 py-1 rounded-full">
+                        <span className="text-xs bg-rose-600 text-white px-2 py-0.5 md:py-1 rounded-full">
                           {formatDistance(course.distance)}
                         </span>
                       </div>
@@ -747,31 +747,31 @@ export default function Home() {
 
         {/* ガチャ履歴 */}
         {history.length > 0 && (
-          <div className="mt-10 bg-white/90 backdrop-blur-xl rounded-3xl shadow-xl p-8 border border-white/30 animate-fadeIn">
-            <h3 className="text-2xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6 flex items-center gap-2">
-              <span className="text-3xl">📜</span> ガチャ履歴
+          <div className="mt-6 md:mt-10 bg-white/90 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-xl p-4 md:p-8 border border-white/30 animate-fadeIn">
+            <h3 className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4 md:mb-6 flex items-center gap-2">
+              <span className="text-2xl md:text-3xl">📜</span> ガチャ履歴
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               {history.map((course, index) => (
                 <button
                   key={`${course.id}-${index}`}
                   onClick={() => setSelectedCourse(course)}
-                  className="p-4 bg-gradient-to-br from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 rounded-2xl border-2 border-indigo-200/50 transition-all duration-300 hover:scale-105 hover:shadow-lg text-left"
+                  className="p-3 md:p-4 bg-gradient-to-br from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 rounded-xl md:rounded-2xl border-2 border-indigo-200/50 transition-all duration-300 hover:scale-105 hover:shadow-lg text-left"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1">
-                      <h4 className="font-bold text-gray-800 mb-1 line-clamp-1">{course.name}</h4>
-                      <p className="text-sm text-gray-600 mb-2">📍 {course.area}</p>
-                      <div className="flex gap-2 flex-wrap">
-                        <span className="text-xs bg-indigo-600 text-white px-2 py-1 rounded-full">
+                      <h4 className="font-bold text-gray-800 mb-1 line-clamp-1 text-sm md:text-base">{course.name}</h4>
+                      <p className="text-xs md:text-sm text-gray-600 mb-2">📍 {course.area}</p>
+                      <div className="flex gap-1.5 md:gap-2 flex-wrap">
+                        <span className="text-xs bg-indigo-600 text-white px-2 py-0.5 md:py-1 rounded-full">
                           {course.duration}分
                         </span>
-                        <span className="text-xs bg-purple-600 text-white px-2 py-1 rounded-full">
+                        <span className="text-xs bg-purple-600 text-white px-2 py-0.5 md:py-1 rounded-full">
                           {formatDistance(course.distance)}
                         </span>
                       </div>
                     </div>
-                    <span className="text-2xl">✨</span>
+                    <span className="text-xl md:text-2xl">✨</span>
                   </div>
                 </button>
               ))}
@@ -780,10 +780,10 @@ export default function Home() {
         )}
 
         {/* 口コミページへのリンク */}
-        <div className="mt-10 text-center animate-fadeIn" style={{animationDelay: '0.3s'}}>
+        <div className="mt-6 md:mt-10 text-center animate-fadeIn" style={{animationDelay: '0.3s'}}>
           <a
             href="/reviews"
-            className="inline-block px-10 py-5 bg-white/20 backdrop-blur-md text-white rounded-3xl font-bold text-lg hover:bg-white/30 transition-all hover:scale-105 shadow-xl hover:shadow-2xl"
+            className="inline-block px-6 md:px-10 py-3 md:py-5 bg-white/20 backdrop-blur-md text-white rounded-2xl md:rounded-3xl font-bold text-sm md:text-lg hover:bg-white/30 transition-all hover:scale-105 shadow-xl hover:shadow-2xl"
           >
             ⭐ 口コミを見る
           </a>
