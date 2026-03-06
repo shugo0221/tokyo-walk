@@ -32,8 +32,15 @@ export function useCourseImage(
       setError(null);
 
       try {
-        // 検索クエリを構築
-        const query = `${areaName} ${courseName} Tokyo Japan`;
+        // 公園名を抽出（「〇〇公園」「〇〇庭園」「〇〇渓谷」などのパターン）
+        const parkMatch = courseName.match(/([\u4e00-\u9faf]+(?:公園|御苑|庭園|渓谷|植物公園))/);
+        const parkName = parkMatch ? parkMatch[1] : null;
+
+        // 検索クエリを構築（公園名があればそれを優先）
+        const query = parkName
+          ? `${parkName} Tokyo Japan`
+          : `${areaName} ${courseName} Tokyo Japan`;
+
         const response = await fetch(
           `/api/image?query=${encodeURIComponent(query)}`
         );

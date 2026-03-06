@@ -18,6 +18,8 @@ export default function Home() {
   const [isGachaAnimating, setIsGachaAnimating] = useState<boolean>(false);
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<"overview" | "highlights" | "access">("overview");
+  const [parkOnly, setParkOnly] = useState<boolean>(false); // 公園メインのみ表示
+  const [isCourseTypeOpen, setIsCourseTypeOpen] = useState<boolean>(false); // コースタイプドロップダウン開閉
 
   // 季節ごとの平均気温
   const seasonTemperatures: Record<Season, number> = {
@@ -111,6 +113,12 @@ export default function Home() {
       }
     }
 
+    // localStorageから公園フィルターを取得
+    const savedParkOnly = localStorage.getItem('tokyoWalk_parkOnly');
+    if (savedParkOnly) {
+      setParkOnly(savedParkOnly === 'true');
+    }
+
     if (savedSeason && savedTemperature && savedWeather && savedDuration) {
       // 保存された条件がある場合は復元
       setCurrentSeason(savedSeason);
@@ -137,16 +145,21 @@ export default function Home() {
     localStorage.setItem('tokyoWalk_temperature', temperature.toString());
     localStorage.setItem('tokyoWalk_weather', weather);
     localStorage.setItem('tokyoWalk_duration', duration.toString());
-  }, [currentSeason, temperature, weather, duration]);
+    localStorage.setItem('tokyoWalk_parkOnly', parkOnly.toString());
+  }, [currentSeason, temperature, weather, duration, parkOnly]);
 
   // フィルタリング関数
   const filterCourses = () => {
     return courses.filter((course) => {
-      return (
+      const matchesBasic =
         course.seasons.includes(currentSeason) &&
         course.weatherStyles.includes(weather) &&
-        course.duration === duration
-      );
+        course.duration === duration;
+
+      if (parkOnly) {
+        return matchesBasic && course.hasPark === true;
+      }
+      return matchesBasic;
     });
   };
 
@@ -200,7 +213,7 @@ export default function Home() {
 
   useEffect(() => {
     setFilteredCount(filterCourses().length);
-  }, [currentSeason, weather, duration]);
+  }, [currentSeason, weather, duration, parkOnly]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-12 px-4 relative overflow-hidden">
@@ -386,6 +399,52 @@ export default function Home() {
                   <div className="text-sm mt-1">分</div>
                 </button>
               ))}
+            </div>
+          </div>
+
+          {/* 公園メインフィルター */}
+          <div className="mb-10">
+            <label className="block text-base font-bold text-gray-800 mb-5 flex items-center gap-3">
+              <span className="text-2xl">🌳</span>
+              <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">コースタイプ</span>
+            </label>
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setIsCourseTypeOpen(!isCourseTypeOpen)}
+                className={`w-full h-14 px-5 pr-12 text-left font-bold text-base bg-white text-gray-700 border-2 shadow-sm cursor-pointer transition-all duration-300 hover:border-purple-300 hover:shadow-md focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-100 ${
+                  isCourseTypeOpen ? "rounded-t-2xl border-purple-500 border-b-0" : "rounded-2xl border-gray-200"
+                }`}
+              >
+                {parkOnly ? "🏞️ 公園メインのコース" : "🗺️ 全てのコース"}
+                <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                  <svg className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${isCourseTypeOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </button>
+              {isCourseTypeOpen && (
+                <div className="absolute z-20 w-full bg-white border-2 border-t-0 border-purple-500 rounded-b-2xl shadow-lg overflow-hidden">
+                  <button
+                    type="button"
+                    onClick={() => { setParkOnly(false); setIsCourseTypeOpen(false); }}
+                    className={`w-full h-12 px-5 text-left font-medium text-base transition-colors duration-150 hover:bg-purple-50 ${
+                      !parkOnly ? "bg-purple-100 text-purple-700" : "text-gray-700"
+                    }`}
+                  >
+                    🗺️ 全てのコース
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { setParkOnly(true); setIsCourseTypeOpen(false); }}
+                    className={`w-full h-12 px-5 text-left font-medium text-base transition-colors duration-150 hover:bg-purple-50 ${
+                      parkOnly ? "bg-purple-100 text-purple-700" : "text-gray-700"
+                    }`}
+                  >
+                    🏞️ 公園メインのコース
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
